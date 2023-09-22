@@ -7,4 +7,7 @@
     <color name="brown">#B89865</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="Main_Blue"> #2699fb</color>
+    <color name="Secondary_Blue">#bce0fd</color>
+    <color name="Tertiary_Blue">#F1F9FF</color>
 </resources>
