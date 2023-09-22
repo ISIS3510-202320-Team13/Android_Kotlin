@@ -22,4 +22,9 @@
         android:name="com.example.parkezkotlin.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+    <fragment
+        android:id="@+id/mainpage"
+        android:name="com.example.parkezkotlin.ui.main.MainFragment"
+        tools:layout="@layout/mainpage"
+        android:label="@string/main" />
 </navigation>

@@ -17,9 +17,7 @@
         android:title="@string/title_notifications" />
     <item
         android:id="@+id/navigation_main"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:icon="@drawable/ic_home_black_24dp"
-        android:title="Main" />
+        android:title="@string/main" />
 
 </menu>
