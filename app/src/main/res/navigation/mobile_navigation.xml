@@ -22,4 +22,18 @@
         android:name="com.example.parkezkotlin.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+    <fragment
+        android:id="@+id/mainpage"
+        android:name="com.example.parkezkotlin.ui.main.MainFragment"
+        tools:layout="@layout/mainpage"
+        android:label="@string/main" >
+        <action
+            android:id="@+id/action_mainpage_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.example.parkezkotlin.ui.login.signUpFragment"
+        android:label="fragment_sign_up"
+        tools:layout="@layout/fragment_sign_up" />
 </navigation>
