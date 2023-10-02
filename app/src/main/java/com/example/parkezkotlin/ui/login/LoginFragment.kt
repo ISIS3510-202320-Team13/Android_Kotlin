@@ -16,14 +16,14 @@ import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.navigation.Navigation
-import com.example.parkezkotlin.databinding.FragmentSignUpBinding
+import com.example.parkezkotlin.databinding.FragmentLoginBinding
 
 import com.example.parkezkotlin.R
 
-class signUpFragment : Fragment() {
+class LoginFragment : Fragment() {
 
     private lateinit var loginViewModel: LoginViewModel
-    private var _binding: FragmentSignUpBinding? = null
+    private var _binding: FragmentLoginBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -35,30 +35,31 @@ class signUpFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        _binding = FragmentSignUpBinding.inflate(inflater, container, false)
+        _binding = FragmentLoginBinding.inflate(inflater, container, false)
         return binding.root
 
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val backButton = binding.imageButton
+        val backButton = binding.imageButton2
         backButton.setOnClickListener {
-            Navigation.findNavController(view).navigate(R.id.action_signUpFragment2_to_main)
+            Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_main)
         }
+
         loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
             .get(LoginViewModel::class.java)
 
         val usernameEditText = binding.username
-        val passwordEditText = binding.password
-      //  val loginButton = binding.login
+        val passwordEditText = binding.passwordLogIn
+        val loginButton = binding.login
 
         loginViewModel.loginFormState.observe(viewLifecycleOwner,
             Observer { loginFormState ->
                 if (loginFormState == null) {
                     return@Observer
                 }
-                //loginButton.isEnabled = loginFormState.isDataValid
+                loginButton.isEnabled = loginFormState.isDataValid
                 loginFormState.usernameError?.let {
                     usernameEditText.error = getString(it)
                 }
@@ -70,7 +71,6 @@ class signUpFragment : Fragment() {
         loginViewModel.loginResult.observe(viewLifecycleOwner,
             Observer { loginResult ->
                 loginResult ?: return@Observer
-               // loadingProgressBar.visibility = View.GONE
                 loginResult.error?.let {
                     showLoginFailed(it)
                 }
@@ -78,7 +78,6 @@ class signUpFragment : Fragment() {
                     updateUiWithUser(it)
                 }
             })
-
 
         val afterTextChangedListener = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
@@ -108,16 +107,16 @@ class signUpFragment : Fragment() {
             false
         }
 
-        //loginButton.setOnClickListener {
-          //  loadingProgressBar.visibility = View.VISIBLE
-           // loginViewModel.login(
-             //   usernameEditText.text.toString(),
-               // passwordEditText.text.toString()
-            //) }
+        loginButton.setOnClickListener {
+            loginViewModel.login(
+                usernameEditText.text.toString(),
+                passwordEditText.text.toString()
+            )
+        }
     }
 
     private fun updateUiWithUser(model: LoggedInUserView) {
-        val welcome = getString(R.string.login) + model.displayName
+        val welcome = getString(R.string.welcome) + model.displayName
         // TODO : initiate successful logged in experience
         val appContext = context?.applicationContext ?: return
         Toast.makeText(appContext, welcome, Toast.LENGTH_LONG).show()

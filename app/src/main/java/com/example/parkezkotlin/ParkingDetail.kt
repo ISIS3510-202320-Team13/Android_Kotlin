@@ -35,7 +35,9 @@ class ParkingDetail : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_parking_detail, container, false)
+
     }
+
 
     companion object {
         /**
