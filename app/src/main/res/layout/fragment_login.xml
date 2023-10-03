@@ -33,53 +33,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/passwordLogIn"
-        android:layout_width="249dp"
-        android:layout_height="47dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="400dp"
-        android:layout_marginEnd="24dp"
-        android:backgroundTint="@color/Main_Blue"
-        android:backgroundTintMode="src_in"
-        android:drawableTint="@color/Main_Blue"
-        android:drawableTintMode="src_in"
-        android:foregroundTint="@color/Main_Blue"
-        android:foregroundTintMode="src_in"
-        android:hint="@string/prompt_password"
-        android:inputType="textEmailAddress"
-        android:selectAllOnFocus="true"
-        app:layout_constraintBottom_toTopOf="@+id/login"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.789"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.047" />
-
-    <Button
-        android:id="@+id/login"
-        android:layout_width="221dp"
-        android:layout_height="58dp"
-        android:layout_gravity="start"
-        android:layout_marginStart="48dp"
-        android:layout_marginEnd="48dp"
-        android:layout_marginBottom="64dp"
-        android:backgroundTint="@color/Main_Blue"
-        android:enabled="false"
-        android:shadowColor="@color/Main_Blue"
-        android:text="Ingresa"
-        android:textColor="@color/white"
-        android:textColorHighlight="@color/Main_Blue"
-        android:textColorHint="@color/Main_Blue"
-        android:textColorLink="@color/Main_Blue"
-        app:iconTint="@color/Main_Blue"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:rippleColor="@color/Main_Blue"
-        app:strokeColor="@color/Main_Blue" />
-
     <TextView
         android:id="@+id/textView32"
         android:layout_width="344dp"
@@ -121,27 +74,45 @@
         android:layout_width="40dp"
         android:layout_height="47dp"
         android:layout_marginTop="78dp"
-        android:layout_marginBottom="274dp"
         android:src="@drawable/baseline_email_24"
-        app:layout_constraintBottom_toTopOf="@+id/login"
         app:layout_constraintEnd_toStartOf="@+id/username"
         app:layout_constraintHorizontal_bias="0.833"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView32" />
 
     <ImageView
-        android:id="@+id/imageView17"
-        android:layout_width="40dp"
-        android:layout_height="41dp"
+        android:id="@+id/imageView15"
+        android:layout_width="43dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="36dp"
         android:layout_marginTop="105dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginBottom="126dp"
         android:src="@drawable/baseline_lock_24"
-        app:layout_constraintBottom_toTopOf="@+id/login"
-        app:layout_constraintEnd_toStartOf="@+id/passwordLogIn"
-        app:layout_constraintHorizontal_bias="0.901"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView16"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/username" />
+
+    <EditText
+        android:id="@+id/passwordLogIn"
+        android:layout_width="251dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="105dp"
+        android:layout_marginEnd="36dp"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/imageView15"
+        app:layout_constraintTop_toBottomOf="@+id/username" />
+
+    <Button
+        android:id="@+id/login"
+        android:layout_width="244dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="98dp"
+        android:text="Ingresar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/passwordLogIn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -19,15 +19,16 @@ import androidx.navigation.Navigation
 import com.example.parkezkotlin.databinding.FragmentSignUpBinding
 
 import com.example.parkezkotlin.R
+import com.google.firebase.auth.FirebaseAuth
 
 class signUpFragment : Fragment() {
 
-    private lateinit var loginViewModel: LoginViewModel
     private var _binding: FragmentSignUpBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+    private lateinit var firebaseAuth: FirebaseAuth
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,86 +47,41 @@ class signUpFragment : Fragment() {
         backButton.setOnClickListener {
             Navigation.findNavController(view).navigate(R.id.action_signUpFragment2_to_main)
         }
-        loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
-            .get(LoginViewModel::class.java)
 
-        val usernameEditText = binding.username
+        firebaseAuth = FirebaseAuth.getInstance()
+
+        val emailEditText = binding.username
+        val emailConfirmEditText = binding.username2
         val passwordEditText = binding.password
-      //  val loginButton = binding.login
-
-        loginViewModel.loginFormState.observe(viewLifecycleOwner,
-            Observer { loginFormState ->
-                if (loginFormState == null) {
-                    return@Observer
+        val confirmPasswordEditText = binding.password2
+        val signUpButton = binding.signup
+        if (emailEditText.text.toString().isEmpty() || emailConfirmEditText.text.toString().isEmpty()) {
+            emailEditText.error = "Please enter email"
+            emailEditText.requestFocus()
+        }
+        if (passwordEditText.text.toString().isEmpty() || confirmPasswordEditText.text.toString().isEmpty()) {
+            passwordEditText.error = "Please enter password"
+            passwordEditText.requestFocus()
+        }
+        if (passwordEditText.text.toString() != confirmPasswordEditText.text.toString()) {
+            confirmPasswordEditText.error = "Passwords do not match"
+            confirmPasswordEditText.requestFocus()
+        }
+        if (emailEditText.text.toString() != emailConfirmEditText.text.toString()) {
+            emailConfirmEditText.error = "Emails do not match"
+            emailConfirmEditText.requestFocus()
+        }
+        signUpButton.setOnClickListener {
+            firebaseAuth.createUserWithEmailAndPassword(emailEditText.text.toString(), passwordEditText.text.toString()).addOnCompleteListener {
+                if (it.isSuccessful) {
+                    Toast.makeText(context, "User Created", Toast.LENGTH_SHORT).show()
+                    Navigation.findNavController(view).navigate(R.id.action_signUpFragment2_to_main)
+                } else {
+                    Toast.makeText(context, "Error: ${it.exception?.message}", Toast.LENGTH_SHORT).show()
                 }
-                //loginButton.isEnabled = loginFormState.isDataValid
-                loginFormState.usernameError?.let {
-                    usernameEditText.error = getString(it)
-                }
-                loginFormState.passwordError?.let {
-                    passwordEditText.error = getString(it)
-                }
-            })
-
-        loginViewModel.loginResult.observe(viewLifecycleOwner,
-            Observer { loginResult ->
-                loginResult ?: return@Observer
-               // loadingProgressBar.visibility = View.GONE
-                loginResult.error?.let {
-                    showLoginFailed(it)
-                }
-                loginResult.success?.let {
-                    updateUiWithUser(it)
-                }
-            })
-
-
-        val afterTextChangedListener = object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
-                // ignore
-            }
-
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                // ignore
-            }
-
-            override fun afterTextChanged(s: Editable) {
-                loginViewModel.loginDataChanged(
-                    usernameEditText.text.toString(),
-                    passwordEditText.text.toString()
-                )
             }
         }
-        usernameEditText.addTextChangedListener(afterTextChangedListener)
-        passwordEditText.addTextChangedListener(afterTextChangedListener)
-        passwordEditText.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                loginViewModel.login(
-                    usernameEditText.text.toString(),
-                    passwordEditText.text.toString()
-                )
-            }
-            false
-        }
 
-        //loginButton.setOnClickListener {
-          //  loadingProgressBar.visibility = View.VISIBLE
-           // loginViewModel.login(
-             //   usernameEditText.text.toString(),
-               // passwordEditText.text.toString()
-            //) }
-    }
-
-    private fun updateUiWithUser(model: LoggedInUserView) {
-        val welcome = getString(R.string.login) + model.displayName
-        // TODO : initiate successful logged in experience
-        val appContext = context?.applicationContext ?: return
-        Toast.makeText(appContext, welcome, Toast.LENGTH_LONG).show()
-    }
-
-    private fun showLoginFailed(@StringRes errorString: Int) {
-        val appContext = context?.applicationContext ?: return
-        Toast.makeText(appContext, errorString, Toast.LENGTH_LONG).show()
     }
 
     override fun onDestroyView() {

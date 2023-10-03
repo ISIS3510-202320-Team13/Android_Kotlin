@@ -89,7 +89,7 @@
         android:layout_marginBottom="24dp"
         android:background="@color/white"
         android:contentDescription=","
-        android:labelFor="@id/button"
+        android:labelFor="@id/signup"
         android:src="@drawable/baseline_arrow_back_24"
         app:layout_constraintBottom_toTopOf="@+id/textView3"
         app:layout_constraintEnd_toEndOf="parent"
@@ -142,13 +142,13 @@
         android:text="Terminos de Servicio y Política de Privacidad"
         android:textAlignment="center"
         android:textColor="@color/mainBlue"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintBottom_toTopOf="@+id/signup"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/signup"
         android:layout_width="283dp"
         android:layout_height="50dp"
         android:layout_marginStart="45dp"
