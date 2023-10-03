@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parkeznavigation"
+    app:startDestination="@id/main">
+    <fragment
+        android:id="@+id/main"
+        android:name="com.example.parkezkotlin.main"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_main_to_signUpFragment2"
+            app:destination="@id/signUpFragment2"
+            app:enterAnim="@anim/nav_default_enter_anim" />
+        <action
+            android:id="@+id/action_main_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signUpFragment2"
+        android:name="com.example.parkezkotlin.ui.login.signUpFragment"
+        android:label="fragment_sign_up"
+        tools:layout="@layout/fragment_sign_up" >
+        <action
+            android:id="@+id/action_signUpFragment2_to_main"
+            app:destination="@id/main" />
+        <action
+            android:id="@+id/action_signUpFragment2_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/booking_info"
+        android:name="com.example.parkezkotlin.booking_info"
+        android:label="fragment_booking_info"
+        tools:layout="@layout/fragment_booking_info" >
+        <action
+            android:id="@+id/action_booking_info_to_parkingDetail"
+            app:destination="@id/parkingDetail" />
+    </fragment>
+    <fragment
+        android:id="@+id/parkingDetail"
+        android:name="com.example.parkezkotlin.ParkingDetail"
+        android:label="fragment_parking_detail"
+        tools:layout="@layout/fragment_parking_detail" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.parkezkotlin.ui.login.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_booking_info"
+            app:destination="@id/booking_info" />
+        <action
+            android:id="@+id/action_loginFragment_to_main"
+            app:destination="@id/main" />
+    </fragment>
+
+</navigation>
