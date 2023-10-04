@@ -37,12 +37,19 @@
         <action
             android:id="@+id/action_booking_info_to_parkingDetail"
             app:destination="@id/parkingDetail" />
+        <action
+            android:id="@+id/action_booking_info_to_mapsFragment"
+            app:destination="@id/mapsFragment" />
     </fragment>
     <fragment
         android:id="@+id/parkingDetail"
         android:name="com.example.parkezkotlin.ParkingDetail"
         android:label="fragment_parking_detail"
-        tools:layout="@layout/fragment_parking_detail" />
+        tools:layout="@layout/fragment_parking_detail" >
+        <action
+            android:id="@+id/action_parkingDetail_to_mapsFragment"
+            app:destination="@id/mapsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.parkezkotlin.ui.login.LoginFragment"
@@ -54,6 +61,21 @@
         <action
             android:id="@+id/action_loginFragment_to_main"
             app:destination="@id/main" />
+        <action
+            android:id="@+id/action_loginFragment_to_mapsFragment"
+            app:destination="@id/mapsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mapsFragment"
+        android:name="com.example.parkezkotlin.MapsFragment"
+        android:label="fragment_maps"
+        tools:layout="@layout/fragment_maps" >
+        <action
+            android:id="@+id/action_mapsFragment_to_booking_info"
+            app:destination="@id/booking_info" />
+        <action
+            android:id="@+id/action_mapsFragment_to_parkingDetail"
+            app:destination="@id/parkingDetail" />
     </fragment>
 
 </navigation>

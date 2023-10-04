@@ -65,7 +65,7 @@ class LoginFragment : Fragment() {
             firebaseAuth.signInWithEmailAndPassword(emailEditText.text.toString(), passwordEditText.text.toString()).addOnCompleteListener {
                 if(it.isSuccessful){
                     Toast.makeText(activity, "Login Successful", Toast.LENGTH_SHORT).show()
-                    Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_booking_info)
+                    Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_mapsFragment)
                 }else{
                     Toast.makeText(activity, "Login Failed", Toast.LENGTH_SHORT).show()
                 }
