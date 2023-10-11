@@ -8,6 +8,9 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.navigation.Navigation
 import com.example.parkezkotlin.databinding.FragmentMainBinding
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
 
 class main : Fragment() {
@@ -31,6 +34,11 @@ class main : Fragment() {
         val button2 = binding.button3
         button2.setOnClickListener {
             Navigation.findNavController(view).navigate(R.id.action_main_to_loginFragment)
+            val database = Firebase.database
+            val myRef = database.getReference("message")
+            myRef.setValue("Hello, World!")
+
+
         }
     }
 

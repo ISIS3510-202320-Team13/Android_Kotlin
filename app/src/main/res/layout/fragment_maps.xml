@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_alignParentTop="true"> <!-- Align the buttons to the top of the screen -->
+        android:layout_alignParentTop="false"> <!-- Align the buttons to the top of the screen -->
 
         <!-- Button 1 -->
 
@@ -21,28 +21,28 @@
         <ImageButton
             android:id="@+id/imageButton3"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="68dp"
             android:layout_weight="1"
             android:src="@drawable/baseline_search_24" />
 
         <ImageButton
             android:id="@+id/imageButton4"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:src="@drawable/baseline_work_outline_24" />
 
         <ImageButton
             android:id="@+id/imageButton5"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:src="@drawable/baseline_favorite_24" />
 
         <ImageButton
             android:id="@+id/imageButton6"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:src="@drawable/baseline_supervised_user_circle_24" />
     </LinearLayout>
@@ -52,8 +52,10 @@
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
-        android:layout_height="618dp"
-        android:layout_below="@+id/buttonContainer"
-        android:layout_marginTop="-2dp"
+        android:layout_height="656dp"
+        android:layout_alignTop="@+id/buttonContainer"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="75dp"
+        android:layout_marginBottom="0dp"
         tools:context=".MapsFragment" />
 </RelativeLayout>
