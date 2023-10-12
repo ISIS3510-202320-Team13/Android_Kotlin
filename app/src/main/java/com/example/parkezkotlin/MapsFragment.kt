@@ -10,9 +10,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
+import androidx.navigation.fragment.findNavController
 import com.example.parkezkotlin.databinding.FragmentMapsBinding
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdate
@@ -123,7 +126,11 @@ class MapsFragment : Fragment() {
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(callback)
 
-        // Load and apply custom map style
+        val searchButton = view.findViewById<ImageButton>(R.id.imageButton3)
+        searchButton.setOnClickListener {
+            findNavController().navigate(R.id.action_mapsFragment_to_search)
+        }
+
         try {
             val success = mapFragment?.getMapAsync { map ->
                 val mapStyleOptions = MapStyleOptions.loadRawResourceStyle(
