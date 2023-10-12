@@ -15,10 +15,12 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.parkezkotlin.databinding.FragmentMapsBinding
 import com.google.android.gms.location.LocationServices
+import com.google.android.gms.maps.CameraUpdate
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.Marker
@@ -46,8 +48,8 @@ class MapsFragment : Fragment() {
             // Permissions are granted; enable location features
             map.isMyLocationEnabled = true
 
-            val bogota = LatLng(4.60971, -74.08175)
-            map.addMarker(MarkerOptions().position(bogota).title("Marker in Bogota"))
+            //val bogota = LatLng(4.60971, -74.08175)
+            //map.addMarker(MarkerOptions().position(bogota).title("Marker in Bogota"))
 
             // Get the user's current location and add a marker there
             getCurrentLocation { location ->
@@ -77,6 +79,16 @@ class MapsFragment : Fragment() {
 
     private fun getCurrentLocation(callback: (LatLng?) -> Unit) {
         val fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
+        val cameraPosition = CameraPosition(
+            LatLng(14.60971, 121.08175),
+            15F,
+            70.0F,
+            0.0F
+
+        )
+        googleMap?.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
+
+
 
         if (ContextCompat.checkSelfPermission(
                 requireContext(),
