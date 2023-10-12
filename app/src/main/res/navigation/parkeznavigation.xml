@@ -40,6 +40,9 @@
         <action
             android:id="@+id/action_booking_info_to_mapsFragment"
             app:destination="@id/mapsFragment" />
+        <action
+            android:id="@+id/action_booking_info_to_metodoDePago2"
+            app:destination="@id/metodoDePago2" />
     </fragment>
     <fragment
         android:id="@+id/parkingDetail"
@@ -76,6 +79,19 @@
         <action
             android:id="@+id/action_mapsFragment_to_parkingDetail"
             app:destination="@id/parkingDetail" />
+        <action
+            android:id="@+id/action_mapsFragment_to_recibos"
+            app:destination="@id/recibos" />
     </fragment>
+    <fragment
+        android:id="@+id/metodoDePago2"
+        android:name="com.example.parkezkotlin.MetodoDePago"
+        android:label="fragment_metodo_de_pago"
+        tools:layout="@layout/fragment_metodo_de_pago" />
+    <fragment
+        android:id="@+id/recibos"
+        android:name="com.example.parkezkotlin.Recibos"
+        android:label="fragment_recibos"
+        tools:layout="@layout/fragment_recibos" />
 
 </navigation>
