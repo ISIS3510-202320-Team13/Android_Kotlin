@@ -35,12 +35,6 @@
         android:label="fragment_booking_info"
         tools:layout="@layout/fragment_booking_info" >
         <action
-            android:id="@+id/action_booking_info_to_parkingDetail"
-            app:destination="@id/parkingDetail" />
-        <action
-            android:id="@+id/action_booking_info_to_mapsFragment"
-            app:destination="@id/mapsFragment" />
-        <action
             android:id="@+id/action_booking_info_to_metodoDePago2"
             app:destination="@id/metodoDePago2" />
     </fragment>
@@ -52,15 +46,15 @@
         <action
             android:id="@+id/action_parkingDetail_to_mapsFragment"
             app:destination="@id/mapsFragment" />
+        <action
+            android:id="@+id/action_parkingDetail_to_booking_info"
+            app:destination="@id/booking_info" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.parkezkotlin.ui.login.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
-        <action
-            android:id="@+id/action_loginFragment_to_booking_info"
-            app:destination="@id/booking_info" />
         <action
             android:id="@+id/action_loginFragment_to_main"
             app:destination="@id/main" />
@@ -80,9 +74,6 @@
             android:id="@+id/action_mapsFragment_to_parkingDetail"
             app:destination="@id/parkingDetail" />
         <action
-            android:id="@+id/action_mapsFragment_to_recibos"
-            app:destination="@id/recibos" />
-        <action
             android:id="@+id/action_mapsFragment_to_searchFragment2"
             app:destination="@id/searchFragment2" />
     </fragment>
@@ -90,7 +81,11 @@
         android:id="@+id/metodoDePago2"
         android:name="com.example.parkezkotlin.MetodoDePago"
         android:label="fragment_metodo_de_pago"
-        tools:layout="@layout/fragment_metodo_de_pago" />
+        tools:layout="@layout/fragment_metodo_de_pago" >
+        <action
+            android:id="@+id/action_metodoDePago2_to_recibos"
+            app:destination="@id/recibos" />
+    </fragment>
     <fragment
         android:id="@+id/recibos"
         android:name="com.example.parkezkotlin.Recibos"
@@ -103,8 +98,12 @@
         tools:layout="@layout/fragment_search" />
     <fragment
         android:id="@+id/searchFragment2"
-        android:name="com.example.parkezkotlin.SearchFragment"
+        android:name="com.example.parkezkotlin.search"
         android:label="fragment_search2"
-        tools:layout="@layout/fragment_search2" />
+        tools:layout="@layout/fragment_search2" >
+        <action
+            android:id="@+id/action_searchFragment2_to_parkingDetail"
+            app:destination="@id/parkingDetail" />
+    </fragment>
 
 </navigation>
