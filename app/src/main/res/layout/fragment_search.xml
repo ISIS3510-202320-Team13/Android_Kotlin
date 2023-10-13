@@ -25,9 +25,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-<<<<<<< HEAD
         tools:listitem="@layout/list_item" />
-=======
-        tools:listitem="@layout/list_item"/>
->>>>>>> origin/main
+
 </LinearLayout>

@@ -128,7 +128,7 @@ class MapsFragment : Fragment() {
 
         val searchButton = view.findViewById<ImageButton>(R.id.imageButton3)
         searchButton.setOnClickListener {
-            findNavController().navigate(R.id.action_mapsFragment_to_search)
+            findNavController().navigate(R.id.action_mapsFragment_to_search2)
         }
 
         try {
