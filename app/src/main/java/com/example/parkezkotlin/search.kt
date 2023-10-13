@@ -7,14 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.SearchView
+import androidx.navigation.Navigation
 import com.example.parkezkotlin.databinding.ActivityMainBinding
 import com.example.parkezkotlin.databinding.FragmentMapsBinding
-import com.example.parkezkotlin.databinding.FragmentSearchBinding
+import com.example.parkezkotlin.databinding.FragmentSearch2Binding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
@@ -22,74 +19,25 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class search : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    lateinit var binding : FragmentSearchBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = FragmentSearchBinding.inflate(layoutInflater)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-        val parking = arrayOf("Tequendama")
-
-        val parkingAdapter = activity?.let {
-            ArrayAdapter<String>(
-                it,
-                android.R.layout.simple_list_item_1,
-                parking
-            )
-        }
-
-        binding.parkingList.adapter = parkingAdapter
-
-        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                binding.searchView.clearFocus()
-                if(parking.contains(query)){
-
-                    parkingAdapter?.filter?.filter(query)
-                }
-                return false
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                parkingAdapter?.filter?.filter(newText)
-                return false
-            }
-
-        })
-    }
+    private lateinit var binding : FragmentSearch2Binding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_search, container, false)
+        binding = FragmentSearch2Binding.inflate(inflater, container, false)
+        return binding.root
     }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val parking = arrayOf("Parking 1", "Parking 2", "Parking 3", "Parking 4", "Parking 5", "Parking 6", "Parking 7", "Parking 8", "Parking 9", "Parking 10")
+        val current_parking = binding.cardView
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment search.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            search().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+        current_parking.setOnClickListener {
+            // go to the payment fragment
+            Navigation.findNavController(view).navigate(R.id.action_searchFragment2_to_parkingDetail)
+        }
     }
 }

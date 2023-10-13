@@ -43,7 +43,7 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val backButton = binding.imageButton2
+        val backButton = binding.imageView18
         backButton.setOnClickListener {
             Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_main)
         }

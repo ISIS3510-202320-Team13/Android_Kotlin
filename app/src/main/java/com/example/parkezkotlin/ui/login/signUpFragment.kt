@@ -43,7 +43,7 @@ class signUpFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val backButton = binding.imageButton
+        val backButton = binding.imageView19
         backButton.setOnClickListener {
             Navigation.findNavController(view).navigate(R.id.action_signUpFragment2_to_main)
         }

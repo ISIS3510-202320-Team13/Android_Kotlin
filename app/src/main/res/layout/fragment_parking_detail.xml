@@ -8,7 +8,9 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:contextClickable="true"
+        android:isScrollContainer="true">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline2"
@@ -26,8 +28,8 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView2"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_width="385dp"
+            android:layout_height="96dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
@@ -39,19 +41,23 @@
             app:layout_constraintTop_toTopOf="@+id/guideline2">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_width="wrap_content"
+                android:layout_height="107dp">
 
                 <TextView
                     android:id="@+id/textView6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="311dp"
+                    android:layout_marginBottom="2dp"
                     android:text="Tarifa"
                     android:textColor="@color/Main_Blue"
                     android:textSize="20dp"
                     android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/textView11"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -60,9 +66,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:layout_marginTop="2dp"
+                    android:layout_marginEnd="270dp"
                     android:text="Carro: 90$/Min"
                     android:textColor="@color/Main_Blue"
+                    app:layout_constraintBottom_toTopOf="@+id/textView12"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
@@ -71,49 +80,24 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:layout_marginTop="2dp"
                     android:text="Moto: 30$/Min"
                     android:textColor="@color/Main_Blue"
+                    app:layout_constraintBottom_toTopOf="@+id/textView14"
+                    app:layout_constraintEnd_toStartOf="@+id/textView14"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
                 <TextView
-                    android:id="@+id/textView13"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="2dp"
-                    android:text="Bicicleta: 10$/Min"
-                    android:textColor="@color/Main_Blue"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView12" />
-
-                <TextView
                     android:id="@+id/textView14"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="207dp"
+                    android:layout_height="39dp"
                     android:layout_marginStart="20dp"
-                    android:layout_marginTop="2dp"
                     android:text="Tarifa reserva: $3.500 aplicables"
                     android:textColor="@color/Main_Blue"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView13" />
-
-                <Button
-                    android:id="@+id/button3"
-                    android:layout_width="0dp"
-                    android:layout_height="40dp"
-                    android:layout_marginBottom="-5dp"
-                    android:backgroundTint="@color/Secondary_Blue"
-                    android:text="SHARE"
-                    android:textAlignment="viewEnd"
-                    android:textColor="@color/Main_Blue"
-                    android:textStyle="bold"
-                    app:cornerRadius="0dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -315,6 +299,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 
@@ -346,11 +331,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="City Parking"
-            android:textColor=" #2699fb"
+            android:text="Tequendama"
+            android:textColor="@color/Main_Blue"
             android:textSize="20dp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView4" />
 
@@ -381,7 +367,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Universidad Central, Cl 22 # 3-79, Bogota"
+            android:text="Cra. 10 #26-21, Bogota"
             android:textColor=" #2699fb"
             android:textSize="16dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -389,35 +375,22 @@
             app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
         <Button
-            android:id="@+id/signup"
-            android:layout_width="120dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
+            android:id="@+id/buttom"
+            android:layout_width="272dp"
+            android:layout_height="49dp"
+            android:layout_marginTop="9dp"
             android:backgroundTint=" #2699fb"
-            android:text="Reservar"
+            android:text="Reserva Automatica"
             android:textAllCaps="false"
             android:textColorHighlight=" #2699fb"
             android:textColorLink=" #2699fb"
             android:textSize="15dp"
-            app:layout_constraintEnd_toStartOf="@+id/guideline4"
-            app:layout_constraintTop_toBottomOf="@+id/textView5" />
-
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="120dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="8dp"
-            android:backgroundTint="#FFFFFF"
-            android:text="Comprar"
-            android:textAllCaps="false"
-            android:textColor=" #2699fb"
-            android:textSize="15dp"
-            app:layout_constraintStart_toStartOf="@+id/guideline4"
+            app:layout_constraintBottom_toTopOf="@+id/cardView2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView5"
-            app:strokeColor="#bce0fd"
-            app:strokeWidth="2dp" />
+            app:toggleCheckedStateOnClick="false" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline4"
