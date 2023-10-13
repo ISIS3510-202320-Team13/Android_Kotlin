@@ -83,8 +83,8 @@
             android:id="@+id/action_mapsFragment_to_recibos"
             app:destination="@id/recibos" />
         <action
-            android:id="@+id/action_mapsFragment_to_search2"
-            app:destination="@id/search" />
+            android:id="@+id/action_mapsFragment_to_searchFragment2"
+            app:destination="@id/searchFragment2" />
     </fragment>
     <fragment
         android:id="@+id/metodoDePago2"
@@ -101,5 +101,10 @@
         android:name="com.example.parkezkotlin.search"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" />
+    <fragment
+        android:id="@+id/searchFragment2"
+        android:name="com.example.parkezkotlin.SearchFragment"
+        android:label="fragment_search2"
+        tools:layout="@layout/fragment_search2" />
 
 </navigation>
