@@ -15,9 +15,6 @@ import com.google.firebase.auth.FirebaseAuth
 class signUpFragment : Fragment() {
 
     private var _binding: FragmentSignUpBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
     private lateinit var firebaseAuth: FirebaseAuth
 
@@ -26,10 +23,8 @@ class signUpFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         _binding = FragmentSignUpBinding.inflate(inflater, container, false)
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -46,33 +41,38 @@ class signUpFragment : Fragment() {
         val passwordEditText = binding.password
         val confirmPasswordEditText = binding.password2
         val signUpButton = binding.signup
-        if (emailEditText.text.toString().isEmpty() || emailConfirmEditText.text.toString().isEmpty()) {
-            emailEditText.error = "Please enter email"
-            emailEditText.requestFocus()
-        }
-        if (passwordEditText.text.toString().isEmpty() || confirmPasswordEditText.text.toString().isEmpty()) {
-            passwordEditText.error = "Please enter password"
-            passwordEditText.requestFocus()
-        }
-        if (passwordEditText.text.toString() != confirmPasswordEditText.text.toString()) {
-            confirmPasswordEditText.error = "Passwords do not match"
-            confirmPasswordEditText.requestFocus()
-        }
-        if (emailEditText.text.toString() != emailConfirmEditText.text.toString()) {
-            emailConfirmEditText.error = "Emails do not match"
-            emailConfirmEditText.requestFocus()
-        }
+
         signUpButton.setOnClickListener {
-            firebaseAuth.createUserWithEmailAndPassword(emailEditText.text.toString(), passwordEditText.text.toString()).addOnCompleteListener {
-                if (it.isSuccessful) {
-                    Toast.makeText(context, "User Created", Toast.LENGTH_SHORT).show()
-                    Navigation.findNavController(view).navigate(R.id.action_signUpFragment2_to_main)
-                } else {
-                    Toast.makeText(context, "Error: ${it.exception?.message}", Toast.LENGTH_SHORT).show()
-                }
+            val email = emailEditText.text.toString()
+            val emailConfirm = emailConfirmEditText.text.toString()
+            val password = passwordEditText.text.toString()
+            val confirmPassword = confirmPasswordEditText.text.toString()
+
+            if (email.isEmpty() || emailConfirm.isEmpty()) {
+                emailEditText.error = "Please enter email"
+                emailEditText.requestFocus()
+            } else if (password.isEmpty() || confirmPassword.isEmpty()) {
+                passwordEditText.error = "Please enter password"
+                passwordEditText.requestFocus()
+            } else if (password != confirmPassword) {
+                confirmPasswordEditText.error = "Passwords do not match"
+                confirmPasswordEditText.requestFocus()
+            } else if (email != emailConfirm) {
+                emailConfirmEditText.error = "Emails do not match"
+                emailConfirmEditText.requestFocus()
+            } else {
+                // Perform the sign-up process
+                firebaseAuth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            Toast.makeText(context, "User Created", Toast.LENGTH_SHORT).show()
+                            Navigation.findNavController(view).navigate(R.id.action_signUpFragment2_to_main)
+                        } else {
+                            Toast.makeText(context, "Error: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                        }
+                    }
             }
         }
-
     }
 
     override fun onDestroyView() {
