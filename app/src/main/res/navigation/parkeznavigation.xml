@@ -6,7 +6,7 @@
     app:startDestination="@id/main">
     <fragment
         android:id="@+id/main"
-        android:name="com.example.parkezkotlin.main"
+        android:name="com.example.parkezkotlin.ui.viewModel.view.main"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" >
         <action
@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/signUpFragment2"
-        android:name="com.example.parkezkotlin.ui.login.signUpFragment"
+        android:name="com.example.parkezkotlin.ui.viewModel.view.signUpFragment"
         android:label="fragment_sign_up"
         tools:layout="@layout/fragment_sign_up" >
         <action
@@ -31,7 +31,7 @@
     </fragment>
     <fragment
         android:id="@+id/booking_info"
-        android:name="com.example.parkezkotlin.booking_info"
+        android:name="com.example.parkezkotlin.ui.viewModel.view.booking_info"
         android:label="fragment_booking_info"
         tools:layout="@layout/fragment_booking_info" >
         <action
@@ -40,7 +40,7 @@
     </fragment>
     <fragment
         android:id="@+id/parkingDetail"
-        android:name="com.example.parkezkotlin.ParkingDetail"
+        android:name="com.example.parkezkotlin.ui.viewModel.view.ParkingDetail"
         android:label="fragment_parking_detail"
         tools:layout="@layout/fragment_parking_detail" >
         <action
@@ -52,7 +52,7 @@
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.parkezkotlin.ui.login.LoginFragment"
+        android:name="com.example.parkezkotlin.ui.viewModel.view.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
@@ -64,7 +64,7 @@
     </fragment>
     <fragment
         android:id="@+id/mapsFragment"
-        android:name="com.example.parkezkotlin.MapsFragment"
+        android:name="com.example.parkezkotlin.ui.viewModel.view.MapsFragment"
         android:label="fragment_maps"
         tools:layout="@layout/fragment_maps" >
         <action
@@ -79,7 +79,7 @@
     </fragment>
     <fragment
         android:id="@+id/metodoDePago2"
-        android:name="com.example.parkezkotlin.MetodoDePago"
+        android:name="com.example.parkezkotlin.ui.viewModel.view.MetodoDePago"
         android:label="fragment_metodo_de_pago"
         tools:layout="@layout/fragment_metodo_de_pago" >
         <action
@@ -88,17 +88,17 @@
     </fragment>
     <fragment
         android:id="@+id/recibos"
-        android:name="com.example.parkezkotlin.Recibos"
+        android:name="com.example.parkezkotlin.ui.viewModel.view.Recibos"
         android:label="fragment_recibos"
         tools:layout="@layout/fragment_recibos" />
     <fragment
         android:id="@+id/search"
-        android:name="com.example.parkezkotlin.search"
+        android:name="com.example.parkezkotlin.ui.viewModel.view.search"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" />
     <fragment
         android:id="@+id/searchFragment2"
-        android:name="com.example.parkezkotlin.search"
+        android:name="com.example.parkezkotlin.ui.viewModel.view.search"
         android:label="fragment_search2"
         tools:layout="@layout/fragment_search2" >
         <action

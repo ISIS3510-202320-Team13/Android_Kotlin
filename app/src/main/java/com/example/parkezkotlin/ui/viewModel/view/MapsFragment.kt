@@ -1,4 +1,4 @@
-package com.example.parkezkotlin
+package com.example.parkezkotlin.ui.viewModel.view
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -14,11 +14,10 @@ import android.widget.ImageButton
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
 import androidx.navigation.fragment.findNavController
+import com.example.parkezkotlin.R
 import com.example.parkezkotlin.databinding.FragmentMapsBinding
 import com.google.android.gms.location.LocationServices
-import com.google.android.gms.maps.CameraUpdate
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback

@@ -1,14 +1,13 @@
-package com.example.parkezkotlin
+package com.example.parkezkotlin.ui.viewModel.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.navigation.Navigation
+import com.example.parkezkotlin.R
 import com.example.parkezkotlin.databinding.FragmentMainBinding
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 

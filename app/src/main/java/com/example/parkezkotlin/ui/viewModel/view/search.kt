@@ -1,17 +1,13 @@
-package com.example.parkezkotlin
+package com.example.parkezkotlin.ui.viewModel.view
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.SearchView
+import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
-import com.example.parkezkotlin.databinding.ActivityMainBinding
-import com.example.parkezkotlin.databinding.FragmentMapsBinding
+import com.example.parkezkotlin.R
 import com.example.parkezkotlin.databinding.FragmentSearch2Binding
-
 
 /**
  * A simple [Fragment] subclass.
@@ -37,7 +33,8 @@ class search : Fragment() {
 
         current_parking.setOnClickListener {
             // go to the payment fragment
-            Navigation.findNavController(view).navigate(R.id.action_searchFragment2_to_parkingDetail)
+            Navigation.findNavController(view)
+                .navigate(R.id.action_searchFragment2_to_parkingDetail)
         }
     }
 }
