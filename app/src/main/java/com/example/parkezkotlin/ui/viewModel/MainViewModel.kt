@@ -1,4 +1,4 @@
-package com.example.parkezkotlin.ui.main
+package com.example.parkezkotlin.ui.viewModel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
