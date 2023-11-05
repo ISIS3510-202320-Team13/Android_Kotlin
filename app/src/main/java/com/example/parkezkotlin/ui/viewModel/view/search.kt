@@ -1,8 +1,6 @@
 package com.example.parkezkotlin.ui.view
 
-import ParkingViewModel
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.parkezkotlin.data.model.parkingModel
 import com.example.parkezkotlin.databinding.FragmentSearch2Binding
 import com.example.parkezkotlin.ui.ParkingAdapter
-
+import ParkingViewModel
+import androidx.appcompat.widget.SearchView
 class SearchFragment : Fragment() {
 
     private lateinit var binding: FragmentSearch2Binding
@@ -39,7 +38,7 @@ class SearchFragment : Fragment() {
         // Observa cambios en el LiveData
         viewModel.parkingsLiveData.observe(viewLifecycleOwner, { parkings ->
             if (parkings != null) {
-                parkingAdapter.submitList(parkings)
+                parkingAdapter.setAllParkings(parkings)
             } else {
                 // Maneja el error (mostrar un mensaje, etc.)
             }
@@ -47,5 +46,18 @@ class SearchFragment : Fragment() {
 
         // Solicita la data al iniciar el fragmento
         viewModel.fetchParkings()
+
+        // Configurar el SearchView
+        binding.searchView2.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                parkingAdapter.filter(newText ?: "")
+                return true
+            }
+        })
+
     }
 }

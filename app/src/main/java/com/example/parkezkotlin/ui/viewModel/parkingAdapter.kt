@@ -1,7 +1,6 @@
 package com.example.parkezkotlin.ui
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -10,6 +9,24 @@ import com.example.parkezkotlin.data.model.parkingModel
 import com.example.parkezkotlin.databinding.ItemParkingBinding
 
 class ParkingAdapter : ListAdapter<parkingModel, ParkingAdapter.ParkingViewHolder>(ParkingDiffCallback()) {
+
+    private var allParkings: List<parkingModel> = emptyList()
+
+    fun setAllParkings(parkings: List<parkingModel>) {
+        allParkings = parkings
+        submitList(parkings)
+    }
+
+    fun filter(query: String) {
+        val filteredList = if (query.isEmpty()) {
+            allParkings
+        } else {
+            allParkings.filter { parking ->
+                parking.name?.contains(query, ignoreCase = true) == true
+            }
+        }
+        submitList(filteredList)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ParkingViewHolder {
         val binding = ItemParkingBinding.inflate(LayoutInflater.from(parent.context), parent, false)

@@ -26,4 +26,5 @@ class ParkingViewModel : ViewModel() {
                 parkingsLiveData.postValue(null)
             }
     }
+
 }
