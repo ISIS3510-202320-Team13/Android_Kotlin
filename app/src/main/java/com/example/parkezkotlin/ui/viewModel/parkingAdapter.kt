@@ -2,11 +2,14 @@ package com.example.parkezkotlin.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.parkezkotlin.data.model.parkingModel
 import com.example.parkezkotlin.databinding.ItemParkingBinding
+import com.example.parkezkotlin.R
 
 class ParkingAdapter : ListAdapter<parkingModel, ParkingAdapter.ParkingViewHolder>(ParkingDiffCallback()) {
 
@@ -39,6 +42,18 @@ class ParkingAdapter : ListAdapter<parkingModel, ParkingAdapter.ParkingViewHolde
     }
 
     inner class ParkingViewHolder(private val binding: ItemParkingBinding) : RecyclerView.ViewHolder(binding.root) {
+        init {
+            itemView.setOnClickListener {
+                // Obtén el parqueadero seleccionado
+                val selectedParking = getItem(adapterPosition)
+
+                // Navega al fragmento de detalle del parqueadero y pasa el ID como argumento para recuperarlo en el otro fragmento
+                val action =Navigation.findNavController(it).navigate(R.id.action_searchFragment2_to_parkingDetail)
+              //  val action = SearchFragmentDirections.actionSearchFragment2ToParkingDetail(selectedParking.uid!!)
+               // it.findNavController().navigate(action)
+            }
+        }
+
         fun bind(parking: parkingModel) {
             binding.textView43.text = parking.name
             binding.textView47.text = "${parking.availabilityCars} cupos disponibles - ${parking.price}/min"
