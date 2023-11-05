@@ -48,5 +48,12 @@ class ParkingDetailFragment : Fragment() {
 
     private fun updateUI(parkingDetail: parkingModel) {
         binding.textView2.text = parkingDetail.name
+        //"ejemplo: 5 cupos disponibles"
+        binding.textView3.text = parkingDetail.availabilityCars.toString() + " cupos disponibles"
+        binding.textView5.text= parkingDetail.direccion
+        binding.textView11.text= parkingDetail.price.toString() + " /min"
+
+
+
     }
 }
