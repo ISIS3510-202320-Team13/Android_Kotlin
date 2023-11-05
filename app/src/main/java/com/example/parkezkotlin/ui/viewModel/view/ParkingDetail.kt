@@ -1,34 +1,52 @@
-package com.example.parkezkotlin.ui.viewModel.view
+package com.example.parkezkotlin.ui.view
 
+import ParkingViewModel
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation
-import com.example.parkezkotlin.R
+import androidx.fragment.app.viewModels
 import com.example.parkezkotlin.databinding.FragmentParkingDetailBinding
+import com.example.parkezkotlin.data.model.parkingModel
+class ParkingDetailFragment : Fragment() {
 
-class ParkingDetail : Fragment() {
+    private lateinit var binding: FragmentParkingDetailBinding
+    private val viewModel: ParkingViewModel by viewModels()
 
-    private var _binding: FragmentParkingDetailBinding? = null
-    private val binding get() = _binding!!
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        binding = FragmentParkingDetailBinding.inflate(inflater, container, false)
+        Log.d("Funciona", "Funciona")
 
-        _binding = FragmentParkingDetailBinding.inflate(inflater, container, false)
         return binding.root
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val automaticReservation = binding.buttom
-        automaticReservation.setOnClickListener {
-            // go to the payment fragment
-            Navigation.findNavController(view).navigate(R.id.action_parkingDetail_to_booking_info)
+        Log.d("Funciona", "Funciona")
+        val parkingId = arguments?.getString("parking_id") ?: return
+        Log.d("ParkingDetailFragment", "Parking ID: $parkingId")
+
+        // Observa cambios en el LiveData de detalles de estacionamiento
+        viewModel.parkingDetailLiveData.observe(viewLifecycleOwner) { parkingDetail ->
+            if (parkingDetail != null) {
+                updateUI(parkingDetail)
+            } else {
+                // Maneja el caso en el que no haya detalles disponibles
+                binding.textView2.text = "Detalles no disponibles"
+            }
         }
+
+        // Solicita la data al iniciar el fragmento
+        viewModel.fetchParkingDetails(parkingId)
     }
 
+    private fun updateUI(parkingDetail: parkingModel) {
+        binding.textView2.text = parkingDetail.name
+    }
 }

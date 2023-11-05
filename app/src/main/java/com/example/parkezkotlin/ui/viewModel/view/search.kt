@@ -1,23 +1,26 @@
-package com.example.parkezkotlin.ui.viewModel.view
+package com.example.parkezkotlin.ui.view
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation
-import com.example.parkezkotlin.R
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.parkezkotlin.data.model.parkingModel
 import com.example.parkezkotlin.databinding.FragmentSearch2Binding
+import com.example.parkezkotlin.ui.ParkingAdapter
+import ParkingViewModel
+import androidx.appcompat.widget.SearchView
+import com.google.android.material.snackbar.Snackbar
 
-/**
- * A simple [Fragment] subclass.
- * Use the [search.newInstance] factory method to
- * create an instance of this fragment.
- */
-class search : Fragment() {
+class SearchFragment : Fragment() {
 
-
-    private lateinit var binding : FragmentSearch2Binding
+    private lateinit var binding: FragmentSearch2Binding
+    private val viewModel: ParkingViewModel by viewModels()
+    private val parkingAdapter = ParkingAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,15 +29,43 @@ class search : Fragment() {
         binding = FragmentSearch2Binding.inflate(inflater, container, false)
         return binding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val parking = arrayOf("Parking 1", "Parking 2", "Parking 3", "Parking 4", "Parking 5", "Parking 6", "Parking 7", "Parking 8", "Parking 9", "Parking 10")
-        val current_parking = binding.cardView
 
-        current_parking.setOnClickListener {
-            // go to the payment fragment
-            Navigation.findNavController(view)
-                .navigate(R.id.action_searchFragment2_to_parkingDetail)
+        binding.recyclerView.layoutManager = LinearLayoutManager(context)
+        binding.recyclerView.adapter = parkingAdapter
+
+        viewModel.parkingsLiveData.observe(viewLifecycleOwner) { parkings ->
+            if (parkings != null) {
+                parkingAdapter.setAllParkings(parkings)
+            } else {
+                Snackbar.make(
+                    binding.root,
+                    "Error al cargar los estacionamientos",
+                    Snackbar.LENGTH_SHORT
+                ).show()
+            }
         }
+
+        viewModel.fetchParkings()
+
+        binding.searchView2.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                // Cierra el teclado al enviar la consulta
+                hideKeyboard()
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                parkingAdapter.filter(newText ?: "")
+                return true
+            }
+        })
+    }
+
+    private fun hideKeyboard() {
+        val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+        imm?.hideSoftInputFromWindow(binding.searchView2.windowToken, 0)
     }
 }
