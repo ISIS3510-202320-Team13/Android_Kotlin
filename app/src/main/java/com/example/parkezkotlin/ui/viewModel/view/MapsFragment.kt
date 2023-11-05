@@ -1,5 +1,6 @@
 package com.example.parkezkotlin.ui.viewModel.view
 
+import ParkingViewModel
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
@@ -14,6 +15,7 @@ import android.widget.ImageButton
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.parkezkotlin.R
 import com.example.parkezkotlin.databinding.FragmentMapsBinding
@@ -22,6 +24,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MapStyleOptions
@@ -33,7 +36,9 @@ class MapsFragment : Fragment() {
     private val binding get() = _binding!!
     private var googleMap: GoogleMap? = null
     private var marker: Marker? = null
-
+    private val viewModel: ParkingViewModel by lazy {
+        ViewModelProvider(this).get(ParkingViewModel::class.java)
+    }
     @SuppressLint("MissingPermission")
     private val callback = OnMapReadyCallback { map ->
         googleMap = map
@@ -77,8 +82,23 @@ class MapsFragment : Fragment() {
         map.setOnMapClickListener { latLng ->
             addMarker(latLng)
         }
+        viewModel.parkingsLiveData.observe(viewLifecycleOwner) { parkings ->
+            parkings?.forEach { parking ->
+                parking.coordinates?.let { geoPoint ->
+                    val position = LatLng(geoPoint.latitude, geoPoint.longitude)
+                    addParkingMarker(position, parking.name ?: "Unnamed")
+                }
+            }
+        }
     }
 
+    private fun addParkingMarker(location: LatLng, title: String) {
+        val markerOptions = MarkerOptions()
+            .position(location)
+            .title(title)
+            .icon(BitmapDescriptorFactory.fromResource(R.drawable.parking))
+        googleMap?.addMarker(markerOptions)
+    }
     private fun getCurrentLocation(callback: (LatLng?) -> Unit) {
         val fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
         val cameraPosition = CameraPosition(
