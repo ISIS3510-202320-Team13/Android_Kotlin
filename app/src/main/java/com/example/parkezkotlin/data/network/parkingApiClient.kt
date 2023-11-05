@@ -10,4 +10,5 @@ interface parkingApiClient {
     suspend fun getParkings(): Response<List<parkingModel>>
 
 
+
 }

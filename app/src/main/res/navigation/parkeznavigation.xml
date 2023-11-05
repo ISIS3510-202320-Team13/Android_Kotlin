@@ -93,12 +93,12 @@
         tools:layout="@layout/fragment_recibos" />
     <fragment
         android:id="@+id/search"
-        android:name="com.example.parkezkotlin.ui.viewModel.view.search"
+        android:name="com.example.parkezkotlin.ui.view.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" />
     <fragment
         android:id="@+id/searchFragment2"
-        android:name="com.example.parkezkotlin.ui.viewModel.view.search"
+        android:name="com.example.parkezkotlin.ui.view.SearchFragment"
         android:label="fragment_search2"
         tools:layout="@layout/fragment_search2" >
         <action

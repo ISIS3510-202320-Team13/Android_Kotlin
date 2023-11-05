@@ -1,29 +1,37 @@
 package com.example.parkezkotlin.core
 
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-import okhttp3.Interceptor
-import okhttp3.OkHttpClient
-
 object RetrofitHelper {
 
-    // Define your API key here
+    // Define tu API key aquí
     private const val apiKey = "my_api_key"
 
     fun getRetrofit(): Retrofit {
-        // Create an OkHttpClient instance with an interceptor that adds the X-API-Key header
-        val client = OkHttpClient.Builder().addInterceptor { chain ->
-            val original = chain.request()
-            val requestBuilder = original.newBuilder()
-                .header("X-API-Key", apiKey)
-            val request = requestBuilder.build()
-            chain.proceed(request)
-        }.build()
+        // Crea una instancia de HttpLoggingInterceptor y configura su nivel
+        val loggingInterceptor = HttpLoggingInterceptor().apply {
+            level = HttpLoggingInterceptor.Level.BODY
+        }
 
-        // Create the Retrofit instance with the OkHttpClient
+        // Crea una instancia de OkHttpClient con un interceptor
+        // que añade la cabecera X-API-Key
+        val client = OkHttpClient.Builder()
+            .addInterceptor(loggingInterceptor)
+            .addInterceptor { chain ->
+                val original = chain.request()
+                val requestBuilder = original.newBuilder()
+                    .header("X-API-Key", apiKey)
+                val request = requestBuilder.build()
+                chain.proceed(request)
+            }
+            .build()
+
+        // Crea y devuelve la instancia de Retrofit con el OkHttpClient
         return Retrofit.Builder()
-            .baseUrl("http://api.parkez.xyz:8082/")
+            .baseUrl("https://api.parkez.xyz:8082/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()

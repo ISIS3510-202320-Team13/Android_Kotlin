@@ -1,23 +1,23 @@
-package com.example.parkezkotlin.ui.viewModel.view
+package com.example.parkezkotlin.ui.view
 
+import ParkingViewModel
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation
-import com.example.parkezkotlin.R
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.parkezkotlin.data.model.parkingModel
 import com.example.parkezkotlin.databinding.FragmentSearch2Binding
+import com.example.parkezkotlin.ui.ParkingAdapter
 
-/**
- * A simple [Fragment] subclass.
- * Use the [search.newInstance] factory method to
- * create an instance of this fragment.
- */
-class search : Fragment() {
+class SearchFragment : Fragment() {
 
-
-    private lateinit var binding : FragmentSearch2Binding
+    private lateinit var binding: FragmentSearch2Binding
+    private val viewModel: ParkingViewModel by viewModels()
+    private val parkingAdapter = ParkingAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,15 +26,26 @@ class search : Fragment() {
         binding = FragmentSearch2Binding.inflate(inflater, container, false)
         return binding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val parking = arrayOf("Parking 1", "Parking 2", "Parking 3", "Parking 4", "Parking 5", "Parking 6", "Parking 7", "Parking 8", "Parking 9", "Parking 10")
-        val current_parking = binding.cardView
 
-        current_parking.setOnClickListener {
-            // go to the payment fragment
-            Navigation.findNavController(view)
-                .navigate(R.id.action_searchFragment2_to_parkingDetail)
-        }
+        // Configura el LayoutManager para el RecyclerView
+        binding.recyclerView.layoutManager = LinearLayoutManager(context)
+
+        // Configura el adaptador para el RecyclerView
+        binding.recyclerView.adapter = parkingAdapter
+
+        // Observa cambios en el LiveData
+        viewModel.parkingsLiveData.observe(viewLifecycleOwner, { parkings ->
+            if (parkings != null) {
+                parkingAdapter.submitList(parkings)
+            } else {
+                // Maneja el error (mostrar un mensaje, etc.)
+            }
+        })
+
+        // Solicita la data al iniciar el fragmento
+        viewModel.fetchParkings()
     }
 }
