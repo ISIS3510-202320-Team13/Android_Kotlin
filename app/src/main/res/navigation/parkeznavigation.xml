@@ -40,7 +40,7 @@
     </fragment>
     <fragment
         android:id="@+id/parkingDetail"
-        android:name="com.example.parkezkotlin.ui.viewModel.view.ParkingDetail"
+        android:name="com.example.parkezkotlin.ui.view.ParkingDetailFragment"
         android:label="fragment_parking_detail"
         tools:layout="@layout/fragment_parking_detail" >
         <action

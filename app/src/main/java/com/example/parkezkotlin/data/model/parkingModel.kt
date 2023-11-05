@@ -10,7 +10,7 @@ data class parkingModel (
     val price: Int? = null,
     val rating: Double? = null,
     val name: String? = null,
-    val uid: String? = null
+    var uid: String? = null
 ) {
     constructor() : this(null, null, null, null, null, null, null, null)
 }

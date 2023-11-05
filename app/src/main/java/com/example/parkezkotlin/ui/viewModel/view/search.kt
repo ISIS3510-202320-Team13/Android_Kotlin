@@ -1,9 +1,11 @@
 package com.example.parkezkotlin.ui.view
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,6 +14,8 @@ import com.example.parkezkotlin.databinding.FragmentSearch2Binding
 import com.example.parkezkotlin.ui.ParkingAdapter
 import ParkingViewModel
 import androidx.appcompat.widget.SearchView
+import com.google.android.material.snackbar.Snackbar
+
 class SearchFragment : Fragment() {
 
     private lateinit var binding: FragmentSearch2Binding
@@ -29,28 +33,28 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Configura el LayoutManager para el RecyclerView
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
-
-        // Configura el adaptador para el RecyclerView
         binding.recyclerView.adapter = parkingAdapter
 
-        // Observa cambios en el LiveData
-        viewModel.parkingsLiveData.observe(viewLifecycleOwner, { parkings ->
+        viewModel.parkingsLiveData.observe(viewLifecycleOwner) { parkings ->
             if (parkings != null) {
                 parkingAdapter.setAllParkings(parkings)
             } else {
-                // Maneja el error (mostrar un mensaje, etc.)
+                Snackbar.make(
+                    binding.root,
+                    "Error al cargar los estacionamientos",
+                    Snackbar.LENGTH_SHORT
+                ).show()
             }
-        })
+        }
 
-        // Solicita la data al iniciar el fragmento
         viewModel.fetchParkings()
 
-        // Configurar el SearchView
         binding.searchView2.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                return false
+                // Cierra el teclado al enviar la consulta
+                hideKeyboard()
+                return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
@@ -58,6 +62,10 @@ class SearchFragment : Fragment() {
                 return true
             }
         })
+    }
 
+    private fun hideKeyboard() {
+        val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+        imm?.hideSoftInputFromWindow(binding.searchView2.windowToken, 0)
     }
 }

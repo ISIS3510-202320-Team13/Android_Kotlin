@@ -1,5 +1,6 @@
 package com.example.parkezkotlin.ui
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.Navigation
@@ -47,10 +48,13 @@ class ParkingAdapter : ListAdapter<parkingModel, ParkingAdapter.ParkingViewHolde
                 // Obtén el parqueadero seleccionado
                 val selectedParking = getItem(adapterPosition)
 
+                val args = Bundle()
+                args.putString("parking_id", selectedParking.uid)
+                println("Parking selected: ${selectedParking.uid}")
+                val navController=it.findNavController()
+
                 // Navega al fragmento de detalle del parqueadero y pasa el ID como argumento para recuperarlo en el otro fragmento
-                val action =Navigation.findNavController(it).navigate(R.id.action_searchFragment2_to_parkingDetail)
-              //  val action = SearchFragmentDirections.actionSearchFragment2ToParkingDetail(selectedParking.uid!!)
-               // it.findNavController().navigate(action)
+                navController.navigate(R.id.action_searchFragment2_to_parkingDetail, args)
             }
         }
 

@@ -7,6 +7,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class ParkingViewModel : ViewModel() {
     val parkingsLiveData = MutableLiveData<List<parkingModel>?>()
+    val parkingDetailLiveData = MutableLiveData<parkingModel?>()  // Nuevo LiveData para el detalle
 
     private val db = FirebaseFirestore.getInstance()
 
@@ -16,7 +17,9 @@ class ParkingViewModel : ViewModel() {
             .addOnSuccessListener { documents ->
                 val parkings = mutableListOf<parkingModel>()
                 for (document in documents) {
-                    val parking = document.toObject(parkingModel::class.java)
+                    val parking = document.toObject(parkingModel::class.java).apply {
+                        uid = document.id  // Agrega el ID del documento al modelo
+                    }
                     parkings.add(parking)
                 }
                 parkingsLiveData.postValue(parkings)
@@ -27,4 +30,23 @@ class ParkingViewModel : ViewModel() {
             }
     }
 
+    fun fetchParkingDetails(parkingId: String) {
+        println("Parking ID: $parkingId")
+        db.collection("parkings").document(parkingId)
+            .addSnapshotListener { snapshot, e ->
+                if (e != null) {
+                    Log.w(TAG, "Listen failed.", e)
+                    parkingDetailLiveData.postValue(null)
+                    return@addSnapshotListener
+                }
+
+                if (snapshot != null && snapshot.exists()) {
+                    val parkingDetail = snapshot.toObject(parkingModel::class.java)
+                    parkingDetailLiveData.postValue(parkingDetail)
+                } else {
+                    Log.d(TAG, "Current data: null")
+                    parkingDetailLiveData.postValue(null)
+                }
+            }
+    }
 }
