@@ -76,6 +76,9 @@
         <action
             android:id="@+id/action_mapsFragment_to_searchFragment2"
             app:destination="@id/searchFragment2" />
+        <action
+            android:id="@+id/action_mapsFragment_to_parkingDetail2"
+            app:destination="@id/parkingDetail" />
     </fragment>
     <fragment
         android:id="@+id/metodoDePago2"
