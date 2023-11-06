@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_main_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_main_to_mapsFragment"
+            app:destination="@id/mapsFragment" />
     </fragment>
     <fragment
         android:id="@+id/signUpFragment2"
@@ -79,6 +82,9 @@
         <action
             android:id="@+id/action_mapsFragment_to_parkingDetail2"
             app:destination="@id/parkingDetail" />
+        <action
+            android:id="@+id/action_mapsFragment_to_settings"
+            app:destination="@id/settings" />
     </fragment>
     <fragment
         android:id="@+id/metodoDePago2"
@@ -107,6 +113,15 @@
         <action
             android:id="@+id/action_searchFragment2_to_parkingDetail"
             app:destination="@id/parkingDetail" />
+    </fragment>
+    <fragment
+        android:id="@+id/settings"
+        android:name="com.example.parkezkotlin.ui.viewModel.view.Settings"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" >
+        <action
+            android:id="@+id/action_settings_to_mapsFragment"
+            app:destination="@id/mapsFragment" />
     </fragment>
 
 </navigation>
