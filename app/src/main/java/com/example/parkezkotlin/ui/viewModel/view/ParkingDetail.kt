@@ -6,10 +6,16 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.parkezkotlin.databinding.FragmentParkingDetailBinding
 import com.example.parkezkotlin.data.model.parkingModel
+import com.example.parkezkotlin.data.model.Reservation
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.firestore
+
 class ParkingDetailFragment : Fragment() {
 
     private lateinit var binding: FragmentParkingDetailBinding
@@ -44,6 +50,26 @@ class ParkingDetailFragment : Fragment() {
 
         // Solicita la data al iniciar el fragmento
         viewModel.fetchParkingDetails(parkingId)
+
+        val reserveButton = binding.buttom
+        val auth = FirebaseAuth.getInstance()
+        val currentUser = auth.currentUser
+
+        if(currentUser != null){
+            reserveButton.setOnClickListener{
+                val cost = 3500
+                val entryTime = System.currentTimeMillis()
+                val exitTime = System.currentTimeMillis()
+                val parkId = parkingId
+                val userId = currentUser.uid
+                val status = "Pending"
+
+                val reservation = Reservation(cost, entryTime, exitTime, parkId, userId, status)
+
+                sendReservationToFirestore(reservation)
+
+            }
+        }
     }
 
     private fun updateUI(parkingDetail: parkingModel) {
@@ -55,5 +81,19 @@ class ParkingDetailFragment : Fragment() {
 
 
 
+    }
+
+    private fun sendReservationToFirestore(reservation: Reservation) {
+        val db = Firebase.firestore
+        val reservationsCollection = db.collection("reservations")
+
+        // Add the reservation data to Firestore
+        reservationsCollection.add(reservation)
+            .addOnSuccessListener { documentReference ->
+                Log.d("Reservation", "DocumentSnapshot added with ID: ${documentReference.id}")
+            }
+            .addOnFailureListener { e ->
+                Log.e("Reservation", "Error adding document", e)
+            }
     }
 }
