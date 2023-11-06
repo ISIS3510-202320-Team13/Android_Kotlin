@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/parkeznavigation"
-    app:startDestination="@id/parkingDetail">
+    app:startDestination="@id/main">
     <fragment
         android:id="@+id/main"
         android:name="com.example.parkezkotlin.ui.viewModel.view.main"
