@@ -124,13 +124,13 @@ class MapsFragment : Fragment() {
     private fun showParkingDetails(parking: parkingModel) {
         cardView.visibility = View.VISIBLE
         parkingName.text = parking.name
-        parkingDetails.text = parking.availabilityCars.toString() + " cupos disponibles"
+        parkingDetails.text = parking.availabilityCars.toString() + " cupos disponibles "+ parking.price.toString() + "$ el min"
     }
 
 
 
     private fun updateParkingDetailsUI(parkingDetail: parkingModel) {
-        parkingDetails.text = parkingDetail.availabilityCars.toString() + " cupos disponibles"
+        parkingDetails.text = parkingDetail.availabilityCars.toString() + " cupos disponibles "+ parkingDetail.price.toString() + " /min"
     }
 
 
