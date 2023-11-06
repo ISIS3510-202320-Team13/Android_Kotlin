@@ -29,7 +29,8 @@ class Settings : Fragment() {
         return binding.root
     }
 
-    fun onCreate(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         super.onCreate(savedInstanceState)
         sharedPreferences = activity?.getSharedPreferences("FILE_KEY", Context.MODE_PRIVATE)!!
         val editor = sharedPreferences.edit()
@@ -39,7 +40,7 @@ class Settings : Fragment() {
         logoutBtn.setOnClickListener{
             editor.clear()
             editor.apply()
-            Navigation.findNavController(view).navigate(R.id.action_settings_to_mapsFragment)
+            Navigation.findNavController(view).navigate(R.id.action_settings_to_main)
         }
     }
 

@@ -122,6 +122,9 @@
         <action
             android:id="@+id/action_settings_to_mapsFragment"
             app:destination="@id/mapsFragment" />
+        <action
+            android:id="@+id/action_settings_to_main"
+            app:destination="@id/main" />
     </fragment>
 
 </navigation>
