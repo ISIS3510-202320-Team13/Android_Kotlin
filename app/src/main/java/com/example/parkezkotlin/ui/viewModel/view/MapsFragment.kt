@@ -6,18 +6,24 @@ import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
 import android.content.pm.PackageManager
 import android.content.res.Resources
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.parkezkotlin.R
+import com.example.parkezkotlin.data.model.parkingModel
 import com.example.parkezkotlin.databinding.FragmentMapsBinding
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -33,12 +39,16 @@ import com.google.android.gms.maps.model.MarkerOptions
 
 class MapsFragment : Fragment() {
     private var _binding: FragmentMapsBinding? = null
+
     private val binding get() = _binding!!
     private var googleMap: GoogleMap? = null
     private var marker: Marker? = null
-    private val viewModel: ParkingViewModel by lazy {
-        ViewModelProvider(this).get(ParkingViewModel::class.java)
-    }
+    private val viewModel: ParkingViewModel by viewModels()
+    private lateinit var cardView: CardView
+    private lateinit var parkingName: TextView
+    private lateinit var parkingDetails: TextView
+
+
     @SuppressLint("MissingPermission")
     private val callback = OnMapReadyCallback { map ->
         googleMap = map
@@ -76,29 +86,67 @@ class MapsFragment : Fragment() {
                 ),
                 PERMISSION_REQUEST_CODE
             )
+
         }
 
-        // Set a click listener to add a marker where the user taps
-        map.setOnMapClickListener { latLng ->
-            addMarker(latLng)
+
+
+
+        googleMap?.setOnMarkerClickListener { clickedMarker ->
+            // Actualizar el marcador global con el marcador que fue clickeado
+            marker = clickedMarker
+            val parkingId = clickedMarker.tag as? String
+            if (parkingId != null) {
+                viewModel.fetchParkingDetails(parkingId)
+            }
+            true
         }
-        viewModel.parkingsLiveData.observe(viewLifecycleOwner) { parkings ->
-            parkings?.forEach { parking ->
-                parking.coordinates?.let { geoPoint ->
-                    val position = LatLng(geoPoint.latitude, geoPoint.longitude)
-                    addParkingMarker(position, parking.name ?: "Unnamed")
-                }
+
+// Escuchador para el CardView
+        cardView.setOnClickListener {
+            Log.d("MapsFragment", "CardView clicked")
+            val parkingId = marker?.tag as? String
+            if (parkingId != null) {
+                val args = Bundle()
+                args.putString("parking_id", parkingId)
+                Log.d("MapsFragment", "Navigating to detail with ID: $parkingId")
+                findNavController().navigate(R.id.action_mapsFragment_to_parkingDetail2, args)
+            } else {
+                Log.d("MapsFragment", "No parking ID found in marker")
             }
         }
+
+
+
+
+
+    }
+    private fun showParkingDetails(parking: parkingModel) {
+        cardView.visibility = View.VISIBLE
+        parkingName.text = parking.name
+        parkingDetails.text = parking.availabilityCars.toString() + " cupos disponibles"
     }
 
-    private fun addParkingMarker(location: LatLng, title: String) {
+
+
+    private fun updateParkingDetailsUI(parkingDetail: parkingModel) {
+        parkingDetails.text = parkingDetail.availabilityCars.toString() + " cupos disponibles"
+    }
+
+
+
+    private fun addParkingMarker(location: LatLng, title: String, parkingId: String) {
+        val originalBitmap = BitmapFactory.decodeResource(resources, R.drawable.parking)
+        val resizedBitmap = Bitmap.createScaledBitmap(originalBitmap, 50, 50, false)
         val markerOptions = MarkerOptions()
             .position(location)
             .title(title)
-            .icon(BitmapDescriptorFactory.fromResource(R.drawable.parking))
-        googleMap?.addMarker(markerOptions)
+            .icon(BitmapDescriptorFactory.fromBitmap(resizedBitmap))
+
+        val marker = googleMap?.addMarker(markerOptions)
+        marker?.tag = parkingId
     }
+
     private fun getCurrentLocation(callback: (LatLng?) -> Unit) {
         val fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
         val cameraPosition = CameraPosition(
@@ -144,10 +192,18 @@ class MapsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(callback)
-
+        cardView = view.findViewById(R.id.cardView)
+        parkingName = view.findViewById(R.id.textView43)
+        parkingDetails = view.findViewById(R.id.textView47)
         val searchButton = view.findViewById<ImageButton>(R.id.imageButton3)
         searchButton.setOnClickListener {
             findNavController().navigate(R.id.action_mapsFragment_to_searchFragment2)
+        }
+
+        viewModel.parkingDetailLiveData.observe(viewLifecycleOwner) { parkingDetail ->
+            if (parkingDetail != null) {
+                updateParkingDetailsUI(parkingDetail)
+            }
         }
 
         try {
@@ -164,6 +220,30 @@ class MapsFragment : Fragment() {
         } catch (e: Resources.NotFoundException) {
             Log.e("MapsFragment", "Raw resource for map style not found: $e")
         }
+
+        //ADD PARKINGS MARKERS
+        // Inicializa el ViewModel
+
+        // Llamar a fetchParkings
+        viewModel.fetchParkings()
+
+        viewModel.parkingsLiveData.observe(viewLifecycleOwner) { parkings ->
+            parkings?.forEach { parking ->
+                parking.coordinates?.let { geoPoint ->
+                    val position = LatLng(geoPoint.latitude, geoPoint.longitude)
+                    addParkingMarker(position, parking.name ?: "Unnamed", parking.uid ?: "")
+                }
+            }
+        }
+        viewModel.parkingDetailLiveData.observe(viewLifecycleOwner) { parkingDetail ->
+            if (parkingDetail != null) {
+                showParkingDetails(parkingDetail)
+
+            } else {
+            }
+
+        }
+
     }
 
     companion object {

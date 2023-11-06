@@ -10,9 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_alignParentTop="false"> <!-- Align the buttons to the top of the screen -->
-
-
+        android:layout_alignParentTop="true">
 
         <ImageButton
             android:id="@+id/imageButton3"
@@ -48,10 +46,62 @@
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
-        android:layout_height="656dp"
-        android:layout_alignTop="@+id/buttonContainer"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="75dp"
-        android:layout_marginBottom="0dp"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/cardView"
+        android:layout_below="@+id/buttonContainer"
         tools:context=".ui.viewModel.view.MapsFragment" />
+
+    <!-- Parking Detail CardView -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_alignParentBottom="true"
+        app:cardBackgroundColor="@color/Tertiary_Blue"
+        android:visibility="gone"> <!-- Set to 'gone' initially; we'll show it programmatically -->
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/imageButton8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:backgroundTint="@color/Tertiary_Blue"
+                android:src="@drawable/baseline_local_parking_24"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView43"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="10dp"
+                android:text="Tequendama"
+                android:textColor="@color/Main_Blue"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/imageButton8"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView47"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="11dp"
+                android:text="25 cupos disponibles - 90/min - 110m"
+
+
+                android:textColor="@color/Main_Blue"
+                android:textSize="15sp"
+                app:layout_constraintStart_toEndOf="@+id/imageButton8"
+                app:layout_constraintTop_toBottomOf="@+id/textView43" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 </RelativeLayout>
