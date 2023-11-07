@@ -221,6 +221,11 @@ class MapsFragment : Fragment() {
             Log.e("MapsFragment", "Raw resource for map style not found: $e")
         }
 
+        val settingsButton = view.findViewById<ImageButton>(R.id.imageButton6)
+        settingsButton.setOnClickListener{
+            findNavController().navigate(R.id.action_mapsFragment_to_settings)
+        }
+
         //ADD PARKINGS MARKERS
         // Inicializa el ViewModel
 

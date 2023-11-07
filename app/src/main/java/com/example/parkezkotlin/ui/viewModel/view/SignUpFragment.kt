@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.content.SharedPreferences
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.os.Bundle
@@ -22,6 +23,7 @@ class signUpFragment : Fragment() {
     private var _binding: FragmentSignUpBinding? = null
     private val binding get() = _binding!!
     private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var sharedPreferences: SharedPreferences
 
     // BroadcastReceiver para escuchar cambios en la conectividad
     private var isConnected = true
@@ -62,6 +64,9 @@ class signUpFragment : Fragment() {
         if (!cachedEmail.isNullOrEmpty()) {
             emailEditText.setText(cachedEmail)
         }
+
+        sharedPreferences = activity?.getSharedPreferences("FILE_KEY", Context.MODE_PRIVATE)!!
+
         signUpButton.setOnClickListener {
             val email = emailEditText.text.toString()
             val emailConfirm = emailConfirmEditText.text.toString()
@@ -89,6 +94,9 @@ class signUpFragment : Fragment() {
                     firebaseAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener { task ->
                             if (task.isSuccessful) {
+                                val editor = sharedPreferences.edit()
+                                editor.putString("email", email)
+                                editor.putString("password", password)
                                 Toast.makeText(context, "User Created", Toast.LENGTH_SHORT).show()
                                 Navigation.findNavController(view).navigate(R.id.action_signUpFragment2_to_main)
                             } else {
