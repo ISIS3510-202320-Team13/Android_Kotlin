@@ -58,13 +58,13 @@ class ParkingDetailFragment : Fragment() {
         if(currentUser != null){
             reserveButton.setOnClickListener{
                 val cost = 3500
-                val entryTime = System.currentTimeMillis()
+                val reserveTime = binding.textTime.text.toString()
                 val exitTime = System.currentTimeMillis()
                 val parkId = parkingId
                 val userId = currentUser.uid
                 val status = "Pending"
 
-                val reservation = Reservation(cost, entryTime, exitTime, parkId, userId, status)
+                val reservation = Reservation(cost, reserveTime, exitTime, parkId, userId, status)
 
                 sendReservationToFirestore(reservation)
 

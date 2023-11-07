@@ -330,7 +330,7 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="5dp"
             android:text="Tequendama"
             android:textColor="@color/Main_Blue"
             android:textSize="20dp"
@@ -366,10 +366,10 @@
             android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="3dp"
             android:text="Cra. 10 #26-21, Bogota"
             android:textColor=" #2699fb"
-            android:textSize="16dp"
+            android:textSize="12dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView4" />
@@ -378,7 +378,7 @@
             android:id="@+id/buttom"
             android:layout_width="272dp"
             android:layout_height="49dp"
-            android:layout_marginTop="9dp"
+            android:layout_marginTop="2dp"
             android:backgroundTint=" #2699fb"
             android:text="Reserva Automatica"
             android:textAllCaps="false"
@@ -389,7 +389,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView5"
+            app:layout_constraintTop_toBottomOf="@+id/textTime"
             app:toggleCheckedStateOnClick="false" />
 
         <androidx.constraintlayout.widget.Guideline
@@ -420,6 +420,22 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/baseline_menu_24" />
+
+        <EditText
+            android:id="@+id/textTime"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/searchview_background"
+            android:ems="10"
+            android:hint="Ingrese hora de la reserva"
+            android:inputType="time"
+            android:textAlignment="center"
+            android:textColorHint="@color/Secondary_Blue"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
