@@ -1,7 +1,7 @@
 package com.example.parkezkotlin.data.model
 
 data class Reservation(
-    val cost: Int,
+    val cost: String,
     val entryTime: String,
     val exitTime: Long,
     val parkingId: String,
