@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.Navigation
+import com.example.parkezkotlin.R
 import com.example.parkezkotlin.databinding.FragmentParkingDetailBinding
 import com.example.parkezkotlin.data.model.parkingModel
 import com.example.parkezkotlin.data.model.Reservation
@@ -57,16 +59,17 @@ class ParkingDetailFragment : Fragment() {
 
         if(currentUser != null){
             reserveButton.setOnClickListener{
-                val cost = 3500
+                val cost = "3500"
                 val reserveTime = binding.textTime.text.toString()
                 val exitTime = System.currentTimeMillis()
                 val parkId = parkingId
                 val userId = currentUser.uid
                 val status = "Pending"
 
-                val reservation = Reservation(cost, reserveTime, exitTime, parkId, userId, status)
+                val reservation = Reservation(cost, reserveTime, exitTime, parkId, status, userId)
 
                 sendReservationToFirestore(reservation)
+                Navigation.findNavController(view).navigate(R.id.action_parkingDetail_to_booking_info)
 
             }
         }
