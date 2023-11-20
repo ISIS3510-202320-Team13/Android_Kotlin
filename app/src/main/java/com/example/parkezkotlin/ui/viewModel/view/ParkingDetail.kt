@@ -2,24 +2,38 @@ package com.example.parkezkotlin.ui.view
 
 import CustomTimePickerFragment
 import ParkingViewModel
+import android.content.ContentValues
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.core.location.LocationManagerCompat.getCurrentLocation
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
+import android.Manifest
 import com.example.parkezkotlin.R
 import com.example.parkezkotlin.data.model.Reservation
 import com.example.parkezkotlin.data.model.parkingModel
 import com.example.parkezkotlin.databinding.FragmentParkingDetailBinding
+import com.example.parkezkotlin.ui.viewModel.view.MapsFragment
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.model.CameraPosition
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Locale
+import kotlinx.coroutines.*
+import kotlin.math.abs
 
 class ParkingDetailFragment : Fragment(), CustomTimePickerFragment.TimePickerListener {
 
@@ -27,6 +41,7 @@ class ParkingDetailFragment : Fragment(), CustomTimePickerFragment.TimePickerLis
     private val viewModel: ParkingViewModel by viewModels()
     private var valorTotal: Int = 0
     private var tarifaPorMinuto: Int = 0
+    private var matchCoord: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,9 +51,15 @@ class ParkingDetailFragment : Fragment(), CustomTimePickerFragment.TimePickerLis
         return binding.root
     }
 
+    private var job: Job? = null
+    private val scope = CoroutineScope(Dispatchers.Default)
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         super.onViewCreated(view, savedInstanceState)
         val parkingId = arguments?.getString("parking_id") ?: return
+
+
 
         viewModel.parkingDetailLiveData.observe(viewLifecycleOwner) { parkingDetail ->
             if (parkingDetail != null) {
@@ -50,6 +71,13 @@ class ParkingDetailFragment : Fragment(), CustomTimePickerFragment.TimePickerLis
 
         viewModel.fetchParkingDetails(parkingId)
 
+        job = scope.launch {
+            while (isActive) {
+                delay(6000L)
+
+                getCurrentUserCoordinates()
+            }
+        }
         val auth = FirebaseAuth.getInstance()
         val currentUser = auth.currentUser
 
@@ -79,6 +107,55 @@ class ParkingDetailFragment : Fragment(), CustomTimePickerFragment.TimePickerLis
                 it.setOnTimeSelectedListener(this)
             }
             customTimePicker.show(parentFragmentManager, "endTimePicker")
+        }
+    }
+    private fun getCurrentUserCoordinates() {
+        viewModel.parkingDetailLiveData.observe(viewLifecycleOwner) { parkingDetail ->
+            parkingDetail?.let {
+                val parkingAddress = parkingDetail.coordinates
+
+
+                if (ContextCompat.checkSelfPermission(
+                        requireContext(),
+                        android.Manifest.permission.ACCESS_FINE_LOCATION
+                    ) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(
+                        requireContext(),
+                        android.Manifest.permission.ACCESS_COARSE_LOCATION
+                    ) == PackageManager.PERMISSION_GRANTED
+                ) {
+
+                    // Get the user's current location and add a marker there
+                    getCurrentLocation { location ->
+                        location?.let {
+                            val userCoord = LatLng(location.latitude, location.longitude)
+                            if (parkingAddress != null) {
+                                if (abs(userCoord.latitude) == abs(parkingAddress.latitude) && abs(userCoord.longitude) == abs(parkingAddress.longitude)) {
+                                    matchCoord++
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    private fun getCurrentLocation(callback: (LatLng?) -> Unit) {
+        val fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
+
+
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                android.Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            fusedLocationClient.lastLocation.addOnSuccessListener { location ->
+                if (location != null) {
+                    callback(LatLng(location.latitude, location.longitude))
+                } else {
+                    Log.e(ContentValues.TAG, "Location not found")
+                    callback(null)
+                }
+            }
         }
     }
 
@@ -139,6 +216,9 @@ class ParkingDetailFragment : Fragment(), CustomTimePickerFragment.TimePickerLis
             Log.e("ParkingDetailFragment", "Error al parsear la hora", e)
         }
     }
-
+    override fun onDestroyView() {
+        super.onDestroyView()
+        job?.cancel()
+    }
 
 }
