@@ -126,5 +126,10 @@
             android:id="@+id/action_settings_to_main"
             app:destination="@id/main" />
     </fragment>
+    <fragment
+        android:id="@+id/custom_time_picker"
+        android:name="com.example.parkezkotlin.custom_time_picker"
+        android:label="fragment_custom_time_picker"
+        tools:layout="@layout/fragment_custom_time_picker" />
 
 </navigation>

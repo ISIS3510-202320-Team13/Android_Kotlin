@@ -10,25 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/button10"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="25dp"
-            android:layout_marginEnd="20dp"
-            android:backgroundTint=" #2699fb"
-            android:text="Process Payment"
-            android:textAllCaps="false"
-            android:textColorHighlight=" #2699fb"
-            android:textColorLink=" #2699fb"
-            android:textSize="15dp"
-            app:cornerRadius="0dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextText6" />
-
         <ImageView
             android:id="@+id/imageView14"
             android:layout_width="wrap_content"
@@ -97,28 +78,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:layout_marginBottom="24dp"
             android:text="MÉTODO DE PAGO"
             android:textColor=" #2699fb"
             android:textSize="12dp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/editTextText"
             app:layout_constraintEnd_toStartOf="@+id/textView9"
             app:layout_constraintHorizontal_bias="0.656"
             app:layout_constraintStart_toEndOf="@+id/imageView17"
-            app:layout_constraintTop_toBottomOf="@+id/imageView22"
-            app:layout_constraintVertical_bias="1.0" />
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="20dp"
-            android:tint="@color/Main_Blue"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/baseline_menu_24" />
+            app:layout_constraintTop_toBottomOf="@+id/imageView22" />
 
         <ImageView
             android:id="@+id/imageView3"
@@ -140,141 +107,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/editTextText"
-            android:layout_width="0dp"
-            android:layout_height="80dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="160dp"
-            android:layout_marginEnd="20dp"
-            android:background="@drawable/text_background"
-            android:ems="10"
-            android:hint="Bank"
-            android:inputType="text"
-            android:textAlignment="viewStart"
-            android:textColor="@color/Main_Blue"
-            android:textColorHint="#435A5454"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <EditText
-            android:id="@+id/editTextText2"
-            android:layout_width="0dp"
-            android:layout_height="80dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:background="@drawable/text_background"
-            android:ems="10"
-            android:hint="Name"
-            android:inputType="text"
-            android:textAlignment="viewStart"
-            android:textColor="@color/Main_Blue"
-            android:textColorHint="#435A5454"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextText" />
-
-        <EditText
-            android:id="@+id/editTextText3"
-            android:layout_width="0dp"
-            android:layout_height="80dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:background="@drawable/text_background"
-            android:ems="10"
-            android:hint="Expire Date"
-            android:inputType="text"
-            android:textAlignment="viewStart"
-            android:textColor="@color/Main_Blue"
-            android:textColorHint="#435A5454"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextText2" />
-
-        <EditText
-            android:id="@+id/editTextText5"
-            android:layout_width="0dp"
-            android:layout_height="80dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:background="@drawable/text_background"
-            android:ems="10"
-            android:hint="CVV"
-            android:inputType="text"
-            android:textAlignment="viewStart"
-            android:textColor="@color/Main_Blue"
-            android:textColorHint="#435A5454"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextText3" />
-
-        <EditText
-            android:id="@+id/editTextText6"
-            android:layout_width="0dp"
-            android:layout_height="80dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:background="@drawable/text_background"
-            android:ems="10"
-            android:hint="Address"
-            android:inputType="text"
-            android:textAlignment="viewStart"
-            android:textColor="@color/Main_Blue"
-            android:textColorHint="#435A5454"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextText5" />
-
-        <TextView
-            android:id="@+id/textView26"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
-            android:layout_marginEnd="10dp"
-            android:text="CARDHOLDER NAME"
-            android:textColor="@color/Secondary_Blue"
-            app:layout_constraintEnd_toEndOf="@+id/editTextText2"
-            app:layout_constraintTop_toTopOf="@+id/editTextText2" />
-
-        <TextView
-            android:id="@+id/textView27"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
-            android:layout_marginEnd="10dp"
-            android:text="EXPIRE DATE"
-            android:textColor="@color/Secondary_Blue"
-            app:layout_constraintEnd_toEndOf="@+id/editTextText3"
-            app:layout_constraintTop_toTopOf="@+id/editTextText3" />
-
-        <TextView
-            android:id="@+id/textView33"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
-            android:layout_marginEnd="10dp"
-            android:text="EXPIRE DATE"
-            android:textColor="@color/Secondary_Blue"
-            app:layout_constraintEnd_toEndOf="@+id/editTextText5"
-            app:layout_constraintTop_toBottomOf="@+id/editTextText3" />
-
-        <TextView
-            android:id="@+id/textView34"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
-            android:layout_marginEnd="10dp"
-            android:text="EXPIRE DATE"
-            android:textColor="@color/Secondary_Blue"
-            app:layout_constraintEnd_toEndOf="@+id/editTextText6"
-            app:layout_constraintTop_toBottomOf="@+id/editTextText5" />
-
         <ImageView
             android:id="@+id/imageView17"
             android:layout_width="25dp"
@@ -294,6 +126,38 @@
             android:src="@drawable/circle2"
             app:layout_constraintEnd_toEndOf="@+id/imageView14"
             app:layout_constraintTop_toTopOf="parent" />
+
+
+
+        <!-- CardInputWidget de Stripe debajo del último ImageView -->
+
+        <!-- Botón para iniciar el proceso de pago -->
+
+        <com.stripe.android.view.CardInputWidget
+            android:id="@+id/cardInputWidget"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="76dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imageView22" />
+
+        <Button
+            android:id="@+id/payButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="44dp"
+            android:layout_marginEnd="20dp"
+            android:backgroundTint="#2699fb"
+            android:text="Process Payment"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardInputWidget" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
