@@ -9,3 +9,6 @@ val status: String,
 val time_to_reserve: Int,
 val user: String
 )
+
+
+
