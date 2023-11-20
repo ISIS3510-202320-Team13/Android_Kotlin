@@ -32,7 +32,10 @@ class MetodoDePago : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        val parkingName = arguments?.getString("parkingName") ?: "Nombre no disponible"
+        val reservationId = arguments?.getString("reservationId") ?: "ID no disponible"
+        val totalCost = arguments?.getInt("totalCost") ?: 0
+        val timeToReserve= arguments?.getInt("timeToReserve") ?: 0
         PaymentConfiguration.init(requireContext(), "pk_test_51O9bWRKDmBizySjnvjKaABN6AV1jq9Sa36eANNomhucKK0qa3Plnklra0Ys1TCIokcDtfReoZtyeDiCByhQdER4400wsFD7eYD")
         stripe = Stripe(requireContext(), PaymentConfiguration.getInstance(requireContext()).publishableKey)
 
@@ -48,7 +51,15 @@ class MetodoDePago : Fragment() {
                     override fun onSuccess(result: Token) {
                         callProcessPaymentFunction(result.id)
                         //redirect to recibos
-                        findNavController().navigate(R.id.action_metodoDePago2_to_recibos)
+                        val bundle = Bundle().apply {
+
+                            putString("parkingName", parkingName)
+                            putString("reservationId", reservationId)
+                            putInt("totalCost", totalCost)
+                            putInt("timeToReserve", timeToReserve)
+                        }
+
+                        findNavController().navigate(R.id.action_metodoDePago2_to_recibos, bundle)
                         Toast.makeText(context, "Pago procesado exitosamente", Toast.LENGTH_LONG).show()
 
                     }

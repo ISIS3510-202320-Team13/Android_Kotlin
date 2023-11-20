@@ -21,22 +21,12 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/imageView10"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:src="@drawable/baseline_arrow_back_24"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <TextView
             android:id="@+id/textView36"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="4dp"
             android:text="RECEIPT FOR"
             android:textColor="#bce0fd"
             app:layout_constraintStart_toStartOf="parent"
@@ -46,7 +36,7 @@
             android:id="@+id/textView37"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
+            android:layout_marginStart="28dp"
             android:layout_marginTop="10dp"
             android:text="PARKING APP"
             android:textColor="#2597FA"
@@ -54,12 +44,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView36" />
 
-        <EditText
+        <TextView
             android:id="@+id/editTextText7"
+            android:gravity="center_vertical|center_horizontal"
+
             android:layout_width="0dp"
             android:layout_height="80dp"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="164dp"
+            android:layout_marginTop="124dp"
             android:layout_marginEnd="20dp"
             android:background="@drawable/text_background"
             android:ems="10"
@@ -72,17 +64,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
+        <TextView
             android:id="@+id/editTextText9"
             android:layout_width="0dp"
             android:layout_height="80dp"
+            android:gravity="center_vertical|center_horizontal"
+
             android:layout_marginStart="20dp"
             android:layout_marginTop="30dp"
             android:layout_marginEnd="20dp"
             android:background="@drawable/text_background"
             android:ems="10"
             android:inputType="text"
-            android:text="August 18, 2023"
+            android:text="Noviembre 20, 2023"
             android:textAlignment="center"
             android:textColor="@color/Main_Blue"
             app:layout_constraintEnd_toEndOf="parent"
@@ -90,12 +84,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editTextText7" />
 
-        <EditText
+        <TextView
             android:id="@+id/editTextText10"
             android:layout_width="0dp"
             android:layout_height="80dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="30dp"
+            android:gravity="center_vertical|center_horizontal"
+
             android:layout_marginEnd="20dp"
             android:background="@drawable/text_background"
             android:ems="10"
@@ -108,13 +104,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editTextText9" />
 
-        <EditText
+        <TextView
             android:id="@+id/editTextText11"
             android:layout_width="0dp"
             android:layout_height="80dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="30dp"
             android:layout_marginEnd="20dp"
+            android:gravity="center_vertical|center_horizontal"
+
             android:background="@drawable/text_background"
             android:ems="10"
             android:inputType="text"
@@ -178,7 +176,7 @@
             android:id="@+id/textView42"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="12dp"
             android:layout_marginTop="20dp"
             android:text="Recomendaciones"
             android:textColor="#bce0fd"
@@ -200,6 +198,7 @@
             android:textColor="#bce0fd"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.526"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView42" />
 
@@ -217,6 +216,7 @@
             android:textColor="#bce0fd"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.526"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView44" />
 

@@ -55,19 +55,54 @@ class ParkingDetailFragment : Fragment(), CustomTimePickerFragment.TimePickerLis
 
         currentUser?.let {
             binding.buttom.setOnClickListener {
-                val cost = "3500"
-                val reserveTime = binding.textTime.text.toString()
-                val exitTime = System.currentTimeMillis()
+                if (binding.textTime.text.isEmpty() || binding.textTime2.text.isEmpty()) {
+                    Toast.makeText(context, "Por favor, selecciona las horas de inicio y fin.", Toast.LENGTH_LONG).show()
+                    return@setOnClickListener
+                }
+
+                val formato = SimpleDateFormat("HH:mm", Locale.getDefault())
+                val fechaInicio = formato.parse(binding.textTime.text.toString())
+                val fechaFin = formato.parse(binding.textTime2.text.toString())
+
+                if (fechaInicio == null || fechaFin == null) {
+                    Toast.makeText(context, "Formato de hora inválido.", Toast.LENGTH_LONG).show()
+                    return@setOnClickListener
+                }
+
+                if (fechaFin.time - fechaInicio.time < 30 * 60000) {
+                    Toast.makeText(context, "La reserva mínima es de 30 minutos.", Toast.LENGTH_LONG).show()
+                    return@setOnClickListener
+                }
+
+                val reserveTime = binding.textTime.text.toString() // Formato "yyyy-MM-dd HH:mm:ss"
+                val exitTime = binding.textTime2.text.toString() // Formato "yyyy-MM-dd HH:mm:ss"
+                val timeToReserve = valorTotal / tarifaPorMinuto // Tiempo en minutos
                 val userId = currentUser.uid
                 val status = "Pending"
 
-                val reservation = Reservation(cost, reserveTime, exitTime, parkingId, status, userId)
-                // sendReservationToFirestore(reservation)
-                Navigation.findNavController(view).navigate(R.id.action_parkingDetail_to_booking_info)
+                val reservation = Reservation(
+                    cost = valorTotal.toString(),
+                    entry_time = reserveTime,
+                    exit_time = exitTime,
+                    parking = parkingId,
+                    status = status,
+                    time_to_reserve = timeToReserve,
+                    user = userId
+                )
+                sendReservationToFirestore(reservation) { reservationId ->
+                    val bundle = Bundle().apply {
+                        putString("parkingName", binding.textView2.text.toString())
+                        putString("reservationId", reservationId)
+                        putInt("totalCost", valorTotal)
+                        putInt("ratePerMinute", tarifaPorMinuto)
+                        putInt("timeToReserve", timeToReserve)
+                    }
+                    Navigation.findNavController(view).navigate(R.id.action_parkingDetail_to_booking_info, bundle)
+                }
             }
         }
 
-        binding.textTime.setOnClickListener {
+            binding.textTime.setOnClickListener {
             val customTimePicker = CustomTimePickerFragment().also {
                 it.setOnTimeSelectedListener(this)
             }
@@ -89,15 +124,16 @@ class ParkingDetailFragment : Fragment(), CustomTimePickerFragment.TimePickerLis
         binding.textView11.text = "${parkingDetail.price} /min"
 
         // Asigna directamente la tarifa por minuto si es de tipo numérico
-        tarifaPorMinuto = parkingDetail.price!!
+        tarifaPorMinuto = parkingDetail.price!!.toInt()
     }
 
-    private fun sendReservationToFirestore(reservation: Reservation) {
+    private fun sendReservationToFirestore(reservation: Reservation, callback: (String) -> Unit) {
         val db = FirebaseFirestore.getInstance()
         db.collection("reservations")
             .add(reservation)
             .addOnSuccessListener { documentReference ->
                 Log.d("Reservation", "DocumentSnapshot added with ID: ${documentReference.id}")
+                callback(documentReference.id) // Pasar el ID al callback
             }
             .addOnFailureListener { e ->
                 Log.e("Reservation", "Error adding document", e)
