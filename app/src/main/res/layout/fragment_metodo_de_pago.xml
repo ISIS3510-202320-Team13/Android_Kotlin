@@ -129,10 +129,6 @@
 
 
 
-        <!-- CardInputWidget de Stripe debajo del último ImageView -->
-
-        <!-- Botón para iniciar el proceso de pago -->
-
         <com.stripe.android.view.CardInputWidget
             android:id="@+id/cardInputWidget"
             android:layout_width="0dp"
