@@ -11,26 +11,14 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/textView35"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:text="PAYMENT"
-            android:textColor=" #2699fb"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
             android:id="@+id/textView36"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="28dp"
-            android:layout_marginTop="4dp"
-            android:text="RECEIPT FOR"
-            android:textColor="#bce0fd"
+            android:text="Recibo de pago"
+            android:textColor="@color/mainBlue"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView35" />
+            tools:layout_editor_absoluteY="40dp" />
 
         <TextView
             android:id="@+id/textView37"
@@ -46,15 +34,15 @@
 
         <TextView
             android:id="@+id/editTextText7"
-            android:gravity="center_vertical|center_horizontal"
-
             android:layout_width="0dp"
+
             android:layout_height="80dp"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="124dp"
+            android:layout_marginTop="108dp"
             android:layout_marginEnd="20dp"
             android:background="@drawable/text_background"
             android:ems="10"
+            android:gravity="center_vertical|center_horizontal"
             android:inputType="text"
             android:text="180 min - $13.000"
             android:textAlignment="center"
@@ -76,7 +64,7 @@
             android:background="@drawable/text_background"
             android:ems="10"
             android:inputType="text"
-            android:text="Noviembre 20, 2023"
+            android:text="Diciembre 6 del 2023"
             android:textAlignment="center"
             android:textColor="@color/Main_Blue"
             app:layout_constraintEnd_toEndOf="parent"
@@ -130,8 +118,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:text="Time Bought"
-            android:textColor="#bce0fd"
+            android:text="Tiempo y valor pagado"
+            android:textColor="@color/mainBlue"
             android:textSize="12sp"
             app:layout_constraintStart_toStartOf="@+id/editTextText7"
             app:layout_constraintTop_toTopOf="@+id/editTextText7" />
@@ -142,8 +130,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:text="Date"
-            android:textColor="#bce0fd"
+            android:text="Fecha"
+            android:textColor="@color/mainBlue"
             android:textSize="12sp"
             app:layout_constraintStart_toStartOf="@+id/editTextText9"
             app:layout_constraintTop_toTopOf="@+id/editTextText9" />
@@ -154,8 +142,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:text="Place"
-            android:textColor="#bce0fd"
+            android:text="Lugar"
+            android:textColor="@color/mainBlue"
             android:textSize="12sp"
             app:layout_constraintStart_toStartOf="@+id/editTextText10"
             app:layout_constraintTop_toTopOf="@+id/editTextText10" />
@@ -166,8 +154,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:text="Confirmation Number"
-            android:textColor="#bce0fd"
+            android:text="Numero de reserva"
+            android:textColor="@color/mainBlue"
             android:textSize="12sp"
             app:layout_constraintStart_toStartOf="@+id/editTextText11"
             app:layout_constraintTop_toTopOf="@+id/editTextText11" />
@@ -179,7 +167,7 @@
             android:layout_marginStart="12dp"
             android:layout_marginTop="20dp"
             android:text="Recomendaciones"
-            android:textColor="#bce0fd"
+            android:textColor="@color/mainBlue"
             android:textSize="12sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editTextText11" />
@@ -195,7 +183,7 @@
             android:text="Recuerda que al comprar tiempo estás pagando por adelantado el precio total de tu tarifa de parqueo, sin embargo, el tiempo que reservaste es el que con el espacio asignado"
             android:textAlignment="center"
             android:textAllCaps="false"
-            android:textColor="#bce0fd"
+            android:textColor="@color/mainBlue"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.526"
@@ -213,7 +201,7 @@
             android:text="En caso de demorarte más de lo comprado informa al encargado y esta persona indicará si es posible dejar el vehiculo o no, de ser posible se te cobrará por el tiempo extra de no tener tarifa plena"
             android:textAlignment="center"
             android:textAllCaps="false"
-            android:textColor="#bce0fd"
+            android:textColor="@color/mainBlue"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.526"
@@ -222,13 +210,13 @@
 
         <TextView
             android:id="@+id/textView46"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="409dp"
+            android:layout_height="34dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="20dp"
             android:text="De no dar previo aviso se podrá retirar el vehiculo de su espacio y se cobrará una multa establecida por el parqueadero"
-            android:textColor="#bce0fd"
+            android:textColor="@color/mainBlue"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -239,7 +227,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:text="I understand"
+            android:text="Aceptar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView46" />

@@ -99,7 +99,11 @@
         android:id="@+id/recibos"
         android:name="com.example.parkezkotlin.ui.viewModel.view.Recibos"
         android:label="fragment_recibos"
-        tools:layout="@layout/fragment_recibos" />
+        tools:layout="@layout/fragment_recibos" >
+        <action
+            android:id="@+id/action_recibos_to_mapsFragment"
+            app:destination="@id/mapsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/search"
         android:name="com.example.parkezkotlin.ui.view.SearchFragment"
