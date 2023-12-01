@@ -1,6 +1,7 @@
 package com.example.parkezkotlin.ui.viewModel.view
 
 import android.content.BroadcastReceiver
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
@@ -8,6 +9,7 @@ import android.content.SharedPreferences
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +19,7 @@ import androidx.navigation.Navigation
 import com.example.parkezkotlin.R
 import com.example.parkezkotlin.databinding.FragmentSignUpBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class signUpFragment : Fragment() {
 
@@ -94,10 +97,15 @@ class signUpFragment : Fragment() {
                     firebaseAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener { task ->
                             if (task.isSuccessful) {
-                                val editor = sharedPreferences.edit()
-                                editor.putString("email", email)
-                                editor.putString("password", password)
-                                Toast.makeText(context, "User Created", Toast.LENGTH_SHORT).show()
+                                val user = task.result?.user
+                                user?.let {
+                                    val userName = ""
+                                    val userPicture = ""
+
+                                    createUserDocument(it.uid, email, userName, userPicture)
+                                }
+                                Toast.makeText(context, "Usuario creado exitosamente", Toast.LENGTH_SHORT).show()
+
                                 Navigation.findNavController(view).navigate(R.id.action_signUpFragment2_to_main)
                             } else {
                                 Toast.makeText(context, "Error: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
@@ -106,6 +114,27 @@ class signUpFragment : Fragment() {
                 }
             }
         }
+    }
+
+
+
+
+    private fun createUserDocument(userId: String, email: String, name: String, picture: String) {
+        val db = FirebaseFirestore.getInstance()
+        val userDocument = hashMapOf(
+            "email" to email,
+            "name" to name,
+            "picture" to picture
+        )
+
+        db.collection("users").document(userId)
+            .set(userDocument)
+            .addOnSuccessListener {
+                Log.d(TAG, "DocumentSnapshot successfully written for user $userId!")
+            }
+            .addOnFailureListener { e ->
+                Log.w(TAG, "Error writing document for user $userId", e)
+            }
     }
 
     override fun onResume() {
