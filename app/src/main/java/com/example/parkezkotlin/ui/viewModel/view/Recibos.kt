@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.example.parkezkotlin.R
 import com.example.parkezkotlin.databinding.FragmentRecibosBinding
 
 class Recibos : Fragment() {
@@ -23,7 +25,13 @@ class Recibos : Fragment() {
         binding.editTextText10.text = parkingName
         binding.editTextText11.text = reservationId
         binding.editTextText7.text = "$timeToReserve min - $${totalCost}"
-        // Configurar aquí los otros TextViews si es necesario
+
+        val button = binding.button
+        button.setOnClickListener {
+            findNavController().navigate(R.id.action_recibos_to_mapsFragment)
+
+
+        }
 
         return binding.root
     }
