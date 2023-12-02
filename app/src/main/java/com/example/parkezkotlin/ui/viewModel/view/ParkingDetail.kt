@@ -168,10 +168,12 @@ class ParkingDetailFragment : Fragment(), CustomTimePickerFragment.TimePickerLis
                         location?.let {
                             val userCoord = LatLng(location.latitude, location.longitude)
                             if (parkingAddress != null) {
-                                if (abs(userCoord.latitude) == abs(parkingAddress.latitude) && abs(
-                                        userCoord.longitude
-                                    ) == abs(parkingAddress.longitude)
-                                ) {
+                                val range = 50
+
+                                val latDifference = abs(userCoord.latitude - parkingAddress.latitude)
+                                val longDifference = abs(userCoord.longitude - parkingAddress.longitude)
+
+                                if (latDifference <= range && longDifference <= range) {
                                     matchCoord++
                                 }
                             }
