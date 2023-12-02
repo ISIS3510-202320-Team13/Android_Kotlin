@@ -200,6 +200,11 @@ class MapsFragment : Fragment() {
             findNavController().navigate(R.id.action_mapsFragment_to_searchFragment2)
         }
 
+        val reservationButton = view.findViewById<ImageButton>(R.id.imageButton4)
+        reservationButton.setOnClickListener{
+            findNavController().navigate(R.id.action_mapsFragment_to_currentReservations)
+        }
+
         viewModel.parkingDetailLiveData.observe(viewLifecycleOwner) { parkingDetail ->
             if (parkingDetail != null) {
                 updateParkingDetailsUI(parkingDetail)
