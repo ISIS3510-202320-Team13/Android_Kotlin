@@ -74,13 +74,13 @@ class ParkingDetailFragment : Fragment(), CustomTimePickerFragment.TimePickerLis
 
         viewModel.fetchParkingDetails(parkingId)
 
-        job = scope.launch {
+       /* job = scope.launch {
             while (isActive) {
                 delay(6000L)
 
                 getCurrentUserCoordinates()
             }
-        }
+        }*/
         val auth = FirebaseAuth.getInstance()
         val currentUser = auth.currentUser
 
