@@ -42,6 +42,7 @@ class ParkingDetailFragment : Fragment(), CustomTimePickerFragment.TimePickerLis
     private var valorTotal: Int = 0
     private var tarifaPorMinuto: Int = 0
     private var matchCoord: Int = 0
+    private var locationPermissionGranted = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,6 +58,7 @@ class ParkingDetailFragment : Fragment(), CustomTimePickerFragment.TimePickerLis
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         super.onViewCreated(view, savedInstanceState)
+        checkLocationPermissions()
         val parkingId = arguments?.getString("parking_id") ?: return
 
 
@@ -64,6 +66,7 @@ class ParkingDetailFragment : Fragment(), CustomTimePickerFragment.TimePickerLis
         viewModel.parkingDetailLiveData.observe(viewLifecycleOwner) { parkingDetail ->
             if (parkingDetail != null) {
                 updateUI(parkingDetail)
+                getCurrentUserCoordinates()
             } else {
                 binding.textView2.text = "No se encontró el parqueadero"
             }
@@ -144,36 +147,40 @@ class ParkingDetailFragment : Fragment(), CustomTimePickerFragment.TimePickerLis
             customTimePicker.show(parentFragmentManager, "endTimePicker")
         }
     }
+
+    private fun checkLocationPermissions() {
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            locationPermissionGranted = true
+        }
+    }
     private fun getCurrentUserCoordinates() {
         viewModel.parkingDetailLiveData.observe(viewLifecycleOwner) { parkingDetail ->
             parkingDetail?.let {
                 val parkingAddress = parkingDetail.coordinates
-
-
-                if (ContextCompat.checkSelfPermission(
-                        requireContext(),
-                        android.Manifest.permission.ACCESS_FINE_LOCATION
-                    ) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(
-                        requireContext(),
-                        android.Manifest.permission.ACCESS_COARSE_LOCATION
-                    ) == PackageManager.PERMISSION_GRANTED
-                ) {
-
-                    // Get the user's current location and add a marker there
                     getCurrentLocation { location ->
                         location?.let {
                             val userCoord = LatLng(location.latitude, location.longitude)
                             if (parkingAddress != null) {
-                                if (abs(userCoord.latitude) == abs(parkingAddress.latitude) && abs(userCoord.longitude) == abs(parkingAddress.longitude)) {
+                                if (abs(userCoord.latitude) == abs(parkingAddress.latitude) && abs(
+                                        userCoord.longitude
+                                    ) == abs(parkingAddress.longitude)
+                                ) {
                                     matchCoord++
                                 }
                             }
                         }
                     }
-                }
             }
         }
     }
+
     private fun getCurrentLocation(callback: (LatLng?) -> Unit) {
         val fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
 
