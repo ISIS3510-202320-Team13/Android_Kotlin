@@ -138,6 +138,9 @@
         <action
             android:id="@+id/action_settings_to_main"
             app:destination="@id/main" />
+        <action
+            android:id="@+id/action_settings_to_pastReservations"
+            app:destination="@id/pastReservations" />
     </fragment>
     <fragment
         android:id="@+id/custom_time_picker"
@@ -149,5 +152,10 @@
         android:name="com.example.parkezkotlin.ui.viewModel.view.CurrentReservations"
         android:label="fragment_current_reservations"
         tools:layout="@layout/fragment_current_reservations" />
+    <fragment
+        android:id="@+id/pastReservations"
+        android:name="com.example.parkezkotlin.ui.viewModel.view.pastReservations"
+        android:label="fragment_past_reservations"
+        tools:layout="@layout/fragment_past_reservations" />
 
 </navigation>
