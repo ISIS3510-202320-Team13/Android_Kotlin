@@ -6,9 +6,12 @@ package com.example.parkezkotlin.ui.viewModel
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.parkezkotlin.data.model.Reservation
 import com.example.parkezkotlin.data.model.parkingModel
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 
 class ReservationViewModel : ViewModel() {
     val reservationsLiveData = MutableLiveData<List<Reservation>?>()
@@ -18,10 +21,13 @@ class ReservationViewModel : ViewModel() {
     private val TAG = "ReservationViewModel"  // Ensure TAG is initialized
 
     fun fetchReservationsFromUser(userId: String) {
-        val docRef = db.collection("reservations").whereEqualTo("user", userId)
+        viewModelScope.launch {
+            try {
+                val snapshot = db.collection("reservations")
+                    .whereEqualTo("user", userId)
+                    .get()
+                    .await()
 
-        docRef.get()
-            .addOnSuccessListener { snapshot ->
                 if (snapshot.isEmpty) {
                     Log.d(TAG, "No reservations found for user $userId")
                     reservationsLiveData.postValue(emptyList())
@@ -31,11 +37,11 @@ class ReservationViewModel : ViewModel() {
 
                     reservationsLiveData.postValue(reservations)
                 }
-            }
-            .addOnFailureListener { exception ->
+            } catch (exception: Exception) {
                 Log.w(TAG, "Error getting reservations from network: ", exception)
                 reservationsLiveData.postValue(null)
             }
+        }
     }
 
     fun fetchReservationDetails(reservationId: String) {

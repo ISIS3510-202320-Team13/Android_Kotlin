@@ -1,8 +1,11 @@
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.parkezkotlin.data.model.parkingModel
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 
 class ParkingViewModel : ViewModel() {
     val parkingsLiveData = MutableLiveData<List<parkingModel>?>()
@@ -15,21 +18,24 @@ class ParkingViewModel : ViewModel() {
     val parkingNameIdCache = mutableMapOf<String, String>()
 
     fun fetchParkings() {
-        db.collection("parkings").get().addOnSuccessListener { documents ->
-            val parkings = documents.mapNotNull { document ->
-                document.toObject(parkingModel::class.java).also { parking ->
-                    parking.uid = document.id  // Cache the parking ID
-                    parking.name?.let { name ->
-                        parkingNameIdCache[document.id] = name  // Cache the parking name using the ID as key
+        viewModelScope.launch {
+            try {
+                val documents = db.collection("parkings").get().await()
+                val parkings = documents.mapNotNull { document ->
+                    document.toObject(parkingModel::class.java).also { parking ->
+                        parking.uid = document.id  // Cache the parking ID
+                        parking.name?.let { name ->
+                            parkingNameIdCache[document.id] = name  // Cache the parking name using the ID as key
+                        }
                     }
                 }
+                parkingsLiveData.postValue(parkings)
+                Log.d(TAG, "Parking names cached: $parkingNameIdCache")
+                Log.d(TAG, "Parkings fetched from network")
+            } catch (exception: Exception) {
+                Log.w(TAG, "Error getting documents from network: ", exception)
+                parkingsLiveData.postValue(null)
             }
-            parkingsLiveData.postValue(parkings)
-            Log.d(TAG, "Parking names cached: $parkingNameIdCache")
-            Log.d(TAG, "Parkings fetched from network")
-        }.addOnFailureListener { exception ->
-            Log.w(TAG, "Error getting documents from network: ", exception)
-            parkingsLiveData.postValue(null)
         }
     }
 
