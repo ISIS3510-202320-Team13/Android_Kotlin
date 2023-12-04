@@ -15,6 +15,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.cardview.widget.CardView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -47,7 +49,8 @@ class MapsFragment : Fragment() {
     private lateinit var cardView: CardView
     private lateinit var parkingName: TextView
     private lateinit var parkingDetails: TextView
-
+    private var backPressedTime: Long = 0
+    private lateinit var backToast: Toast
 
     @SuppressLint("MissingPermission")
     private val callback = OnMapReadyCallback { map ->
@@ -65,7 +68,7 @@ class MapsFragment : Fragment() {
             // Permissions are granted; enable location features
             map.isMyLocationEnabled = true
 
-            //val bogota = LatLng(4.60971, -74.08175)
+            val bogota = LatLng(4.60971, -74.08175)
             //map.addMarker(MarkerOptions().position(bogota).title("Marker in Bogota"))
 
             // Get the user's current location and add a marker there
@@ -73,7 +76,7 @@ class MapsFragment : Fragment() {
                 location?.let {
                     val userLocation = LatLng(location.latitude, location.longitude)
                     map.addMarker(MarkerOptions().position(userLocation).title("Your Location"))
-                    map.moveCamera(CameraUpdateFactory.newLatLng(userLocation))
+                    map.moveCamera(CameraUpdateFactory.newLatLng(bogota))
                 }
             }
         } else {
@@ -204,6 +207,23 @@ class MapsFragment : Fragment() {
         reservationButton.setOnClickListener{
             findNavController().navigate(R.id.action_mapsFragment_to_currentReservations)
         }
+
+        backToast = Toast.makeText(context, "Presiona de nuevo para salir", Toast.LENGTH_SHORT)
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    if (backPressedTime + 2000 > System.currentTimeMillis()) {
+                        // salir de la app
+                        requireActivity().finish()
+                    } else {
+                        backToast.show()
+
+                        backPressedTime = System.currentTimeMillis()
+                    }
+                }
+            })
+
 
         viewModel.parkingDetailLiveData.observe(viewLifecycleOwner) { parkingDetail ->
             if (parkingDetail != null) {

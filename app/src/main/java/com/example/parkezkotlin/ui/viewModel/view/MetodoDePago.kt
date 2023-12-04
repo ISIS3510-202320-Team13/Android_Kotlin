@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.parkezkotlin.R
@@ -21,6 +22,7 @@ class MetodoDePago : Fragment() {
     private val binding get() = _binding!!
     private lateinit var stripe: Stripe
     private lateinit var functions: FirebaseFunctions
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -71,7 +73,11 @@ class MetodoDePago : Fragment() {
             } else {
                 Toast.makeText(context, "Información de tarjeta inválida", Toast.LENGTH_LONG).show()
             }
+
         }
+
+
+
     }
 
     private fun callProcessPaymentFunction(tokenId: String) {
