@@ -129,6 +129,7 @@ class ParkingDetailFragment:Fragment(), CustomTimePickerFragment.TimePickerListe
                             putInt("totalCost", valorTotal)
                             putInt("ratePerMinute", tarifaPorMinuto)
                             putInt("timeToReserve", timeToReserve)
+
                         }
                         Navigation.findNavController(view).navigate(R.id.action_parkingDetail_to_booking_info, bundle)
                     } else {
@@ -232,6 +233,8 @@ class ParkingDetailFragment:Fragment(), CustomTimePickerFragment.TimePickerListe
             .addOnFailureListener { e ->
                 Log.e("Reservation", "Error adding document", e)
             }
+
+        
     }
 
     override fun onTimeSelected(hourOfDay: Int, minute: Int, tag: String?) {
