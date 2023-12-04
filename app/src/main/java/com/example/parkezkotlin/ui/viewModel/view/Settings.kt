@@ -41,6 +41,10 @@ class Settings : Fragment() {
 
         loadUserData()
 
+        binding.Reservas.setOnClickListener{
+            Navigation.findNavController(view).navigate(R.id.action_settings_to_pastReservations)
+        }
+
         binding.logout.setOnClickListener {
             firebaseAuth.signOut()
             sharedPreferences.edit().clear().apply()
