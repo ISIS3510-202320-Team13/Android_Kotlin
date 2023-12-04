@@ -112,17 +112,20 @@
     </fragment>
     <fragment
         android:id="@+id/search"
-        android:name="com.example.parkezkotlin.ui.view.SearchFragment"
+        android:name="com.example.parkezkotlin.ui.viewModel.view.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" />
     <fragment
         android:id="@+id/searchFragment2"
-        android:name="com.example.parkezkotlin.ui.view.SearchFragment"
+        android:name="com.example.parkezkotlin.ui.viewModel.view.SearchFragment"
         android:label="fragment_search2"
         tools:layout="@layout/fragment_search2" >
         <action
             android:id="@+id/action_searchFragment2_to_parkingDetail"
             app:destination="@id/parkingDetail" />
+        <action
+            android:id="@+id/action_searchFragment2_to_mapsFragment"
+            app:destination="@id/mapsFragment" />
     </fragment>
     <fragment
         android:id="@+id/settings"

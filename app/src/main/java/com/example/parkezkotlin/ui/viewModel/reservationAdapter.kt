@@ -58,7 +58,15 @@ class ReservationAdapter : ListAdapter<Reservation, ReservationAdapter.Reservati
 
         fun bind(reservation: Reservation) {
             binding.textView43.text = reservation.parking
-            binding.textView47.text = "${reservation.entry_time} - ${reservation.exit_time}"
+            val day=reservation.entry_time
+            if (day != null) {
+                if (day.length>=10)
+                    binding.textView13.text = "Fecha: ${day.substring(0,10)}"
+                else {
+                    binding.textView13.text = "Horas: ${day}"
+                }
+            }
+            binding.textView47.text = "Duración: ${reservation.time_to_reserve} minutos"
         }
     }
 

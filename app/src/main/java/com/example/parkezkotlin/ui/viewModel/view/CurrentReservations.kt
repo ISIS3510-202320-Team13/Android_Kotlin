@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.parkezkotlin.ui.viewModel.ReservationViewModel
+import com.google.firebase.auth.FirebaseAuth
 
 /**
  * A simple [Fragment] subclass.
@@ -50,7 +51,9 @@ class CurrentReservations : Fragment() {
             }
         }
 
-        viewModel.fetchReservations()
+        val user=FirebaseAuth.getInstance().currentUser
+        viewModel.fetchReservationsFromUser(user?.uid.toString())
+
 
     }
 }
