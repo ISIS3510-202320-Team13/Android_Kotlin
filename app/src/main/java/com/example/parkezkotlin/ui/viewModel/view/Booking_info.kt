@@ -4,8 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.example.parkezkotlin.R
 import com.example.parkezkotlin.databinding.FragmentBookingInfoBinding
 import java.text.NumberFormat
@@ -13,6 +16,9 @@ import java.text.NumberFormat
 class booking_info : Fragment(){
     private var _binding: FragmentBookingInfoBinding? = null
     private val binding get() = _binding!!
+    private var backPressedTime: Long = 0
+    private lateinit var backToast: Toast
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -46,6 +52,19 @@ class booking_info : Fragment(){
             }
             Navigation.findNavController(view).navigate(R.id.action_booking_info_to_metodoDePago2, bundle)
         }
+
+        backToast = Toast.makeText(context, "Si vuelve a ir hacia atras, cancelara su reserva actual!", Toast.LENGTH_SHORT)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (backPressedTime + 2000 > System.currentTimeMillis()) {
+                    // Navegar al fragmento del mapa
+                    findNavController().navigate(R.id.action_booking_info_to_searchFragment2)
+                } else {
+                    backToast.show()
+                    backPressedTime = System.currentTimeMillis()
+                }
+            }
+        })
     }
 
     override fun onDestroyView() {

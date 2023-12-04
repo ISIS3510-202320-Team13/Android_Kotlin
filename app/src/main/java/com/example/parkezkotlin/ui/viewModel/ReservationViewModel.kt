@@ -6,34 +6,42 @@ package com.example.parkezkotlin.ui.viewModel
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.parkezkotlin.data.model.Reservation
+import com.example.parkezkotlin.data.model.parkingModel
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 
 class ReservationViewModel : ViewModel() {
     val reservationsLiveData = MutableLiveData<List<Reservation>?>()
     val reservationDetailLiveData = MutableLiveData<Reservation?>()
-
+    val parkingDetailLiveData = MutableLiveData<parkingModel?>()
     private val db = FirebaseFirestore.getInstance()
     private val TAG = "ReservationViewModel"  // Ensure TAG is initialized
 
-    fun fetchReservations() {
-        db.collection("reservations")
-            .get()  // This will fetch from the network by default
-            .addOnSuccessListener { documents ->
-                val reservations = mutableListOf<Reservation>()
-                for (document in documents) {
-                    val reservation = document.toObject(Reservation::class.java).apply {
-                        uid = document.id  // Add the document ID to the model
-                    }
-                    reservations.add(reservation)
+    fun fetchReservationsFromUser(userId: String) {
+        viewModelScope.launch {
+            try {
+                val snapshot = db.collection("reservations")
+                    .whereEqualTo("user", userId)
+                    .get()
+                    .await()
+
+                if (snapshot.isEmpty) {
+                    Log.d(TAG, "No reservations found for user $userId")
+                    reservationsLiveData.postValue(emptyList())
+                } else {
+                    val reservations = snapshot.toObjects(Reservation::class.java)
+                    Log.d(TAG, "Fetched reservations: $reservations") // Log the fetched data
+
+                    reservationsLiveData.postValue(reservations)
                 }
-                reservationsLiveData.postValue(reservations)
-                Log.d(TAG, "Reservations fetched from network")
-            }
-            .addOnFailureListener { exception ->
-                Log.w(TAG, "Error getting documents from network: ", exception)
+            } catch (exception: Exception) {
+                Log.w(TAG, "Error getting reservations from network: ", exception)
                 reservationsLiveData.postValue(null)
             }
+        }
     }
 
     fun fetchReservationDetails(reservationId: String) {

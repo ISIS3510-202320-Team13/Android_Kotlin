@@ -1,20 +1,17 @@
 package com.example.parkezkotlin.ui.viewModel.view
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.parkezkotlin.data.model.parkingModel
 import com.example.parkezkotlin.databinding.FragmentCurrentReservationsBinding
-import com.example.parkezkotlin.ui.ReservationAdapter
+import com.example.parkezkotlin.ui.viewModel.ReservationAdapter
 
-import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import com.example.parkezkotlin.ui.viewModel.ReservationViewModel
+import com.google.firebase.auth.FirebaseAuth
 
 /**
  * A simple [Fragment] subclass.
@@ -54,7 +51,9 @@ class CurrentReservations : Fragment() {
             }
         }
 
-        viewModel.fetchReservations()
+        val user=FirebaseAuth.getInstance().currentUser
+        viewModel.fetchReservationsFromUser(user?.uid.toString())
+
 
     }
 }

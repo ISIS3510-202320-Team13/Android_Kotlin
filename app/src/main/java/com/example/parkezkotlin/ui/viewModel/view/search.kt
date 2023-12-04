@@ -1,4 +1,4 @@
-package com.example.parkezkotlin.ui.view
+package com.example.parkezkotlin.ui.viewModel.view
 
 import android.content.Context
 import android.os.Bundle
@@ -15,6 +15,9 @@ import com.example.parkezkotlin.ui.ParkingAdapter
 import ParkingViewModel
 import androidx.appcompat.widget.SearchView
 import com.google.android.material.snackbar.Snackbar
+import androidx.activity.OnBackPressedCallback
+import androidx.navigation.fragment.findNavController
+import com.example.parkezkotlin.R
 
 class SearchFragment : Fragment() {
 
@@ -62,6 +65,14 @@ class SearchFragment : Fragment() {
                 return true
             }
         })
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                // Navegar al fragmento del mapa
+                findNavController().navigate(R.id.action_searchFragment2_to_mapsFragment)
+            }
+        }
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
     }
 
     private fun hideKeyboard() {

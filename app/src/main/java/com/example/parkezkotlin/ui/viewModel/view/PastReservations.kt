@@ -8,9 +8,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.parkezkotlin.databinding.FragmentPastReservationsBinding
-import com.example.parkezkotlin.ui.ReservationAdapter
+import com.example.parkezkotlin.ui.viewModel.ReservationAdapter
 import com.example.parkezkotlin.ui.viewModel.ReservationViewModel
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
 
 
 class PastReservations : Fragment() {
@@ -44,8 +45,10 @@ class PastReservations : Fragment() {
                 ).show()
             }
         }
+        val userid=FirebaseAuth.getInstance().currentUser?.uid
 
-        viewModel.fetchReservations()
+
+        viewModel.fetchReservationsFromUser(userid.toString()   )
 
     }
 }

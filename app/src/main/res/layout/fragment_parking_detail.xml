@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.viewModel.view.ParkingDetail">
+    tools:context=".ui.viewModel.view.ParkingDetailFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -102,12 +102,12 @@
             android:layout_width="272dp"
             android:layout_height="49dp"
             android:layout_marginTop="332dp"
-            android:backgroundTint=" #2699fb"
             android:text="Reserva Automatica"
             android:textAllCaps="false"
             android:textColorHighlight=" #2699fb"
             android:textColorLink=" #2699fb"
             android:textSize="15dp"
+            android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"

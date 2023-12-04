@@ -40,10 +40,13 @@
         <action
             android:id="@+id/action_booking_info_to_metodoDePago2"
             app:destination="@id/metodoDePago2" />
+        <action
+            android:id="@+id/action_booking_info_to_searchFragment2"
+            app:destination="@id/searchFragment2" />
     </fragment>
     <fragment
         android:id="@+id/parkingDetail"
-        android:name="com.example.parkezkotlin.ui.view.ParkingDetailFragment"
+        android:name="com.example.parkezkotlin.ui.viewModel.view.ParkingDetailFragment"
         android:label="fragment_parking_detail"
         tools:layout="@layout/fragment_parking_detail" >
         <action
@@ -109,17 +112,20 @@
     </fragment>
     <fragment
         android:id="@+id/search"
-        android:name="com.example.parkezkotlin.ui.view.SearchFragment"
+        android:name="com.example.parkezkotlin.ui.viewModel.view.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" />
     <fragment
         android:id="@+id/searchFragment2"
-        android:name="com.example.parkezkotlin.ui.view.SearchFragment"
+        android:name="com.example.parkezkotlin.ui.viewModel.view.SearchFragment"
         android:label="fragment_search2"
         tools:layout="@layout/fragment_search2" >
         <action
             android:id="@+id/action_searchFragment2_to_parkingDetail"
             app:destination="@id/parkingDetail" />
+        <action
+            android:id="@+id/action_searchFragment2_to_mapsFragment"
+            app:destination="@id/mapsFragment" />
     </fragment>
     <fragment
         android:id="@+id/settings"
@@ -138,7 +144,7 @@
     </fragment>
     <fragment
         android:id="@+id/custom_time_picker"
-        android:name="com.example.parkezkotlin.custom_time_picker"
+        android:name="com.example.parkezkotlin.ui.viewModel.view.CustomTimePickerFragment"
         android:label="fragment_custom_time_picker"
         tools:layout="@layout/fragment_custom_time_picker" />
     <fragment
