@@ -40,6 +40,9 @@
         <action
             android:id="@+id/action_booking_info_to_metodoDePago2"
             app:destination="@id/metodoDePago2" />
+        <action
+            android:id="@+id/action_booking_info_to_searchFragment2"
+            app:destination="@id/searchFragment2" />
     </fragment>
     <fragment
         android:id="@+id/parkingDetail"

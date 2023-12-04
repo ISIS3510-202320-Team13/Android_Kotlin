@@ -1,18 +1,18 @@
-package com.example.parkezkotlin.ui
+package com.example.parkezkotlin.ui.viewModel
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.parkezkotlin.data.model.Reservation
 import com.example.parkezkotlin.databinding.ItemReservationBinding
-import com.example.parkezkotlin.R
 
-class ReservationAdapter : ListAdapter<Reservation, ReservationAdapter.ReservationViewHolder>(ReservationDiffCallback()) {
+class ReservationAdapter : ListAdapter<Reservation, ReservationAdapter.ReservationViewHolder>(
+    ReservationDiffCallback()
+) {
 
     private var allReservations: List<Reservation> = emptyList()
 

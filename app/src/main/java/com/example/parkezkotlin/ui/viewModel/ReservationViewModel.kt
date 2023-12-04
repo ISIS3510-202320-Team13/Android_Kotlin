@@ -23,7 +23,7 @@ class ReservationViewModel : ViewModel() {
                 val reservations = mutableListOf<Reservation>()
                 for (document in documents) {
                     val reservation = document.toObject(Reservation::class.java).apply {
-                        uid = document.id  // Add the document ID to the model
+                        uid=document.id
                     }
                     reservations.add(reservation)
                 }

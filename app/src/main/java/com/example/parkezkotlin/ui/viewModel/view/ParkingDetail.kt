@@ -103,13 +103,11 @@ class ParkingDetailFragment:Fragment(), CustomTimePickerFragment.TimePickerListe
                     return@setOnClickListener
                 }
 
-                if (fechaFin.time - fechaInicio.time < 30 * 60000) {
-                    Toast.makeText(context, "La reserva mínima es de 30 minutos.", Toast.LENGTH_LONG).show()
+                if (fechaFin.time - fechaInicio.time < 10 * 60000) {
+                    Toast.makeText(context, "La reserva mínima es de 10 minutos.", Toast.LENGTH_LONG).show()
                     return@setOnClickListener
                 }
 
-                val reserveTime = binding.textTime.text.toString() // Formato "yyyy-MM-dd HH:mm:ss"
-                val exitTime = binding.textTime2.text.toString() // Formato "yyyy-MM-dd HH:mm:ss"
                 val timeToReserve = valorTotal / tarifaPorMinuto // Tiempo en minutos
                 val userId = currentUser.uid
                 val status = "Pending"
@@ -227,6 +225,7 @@ class ParkingDetailFragment:Fragment(), CustomTimePickerFragment.TimePickerListe
         db.collection("reservations")
             .add(reservation)
             .addOnSuccessListener { documentReference ->
+                val generatedId=documentReference.id
                 Log.d("Reservation", "DocumentSnapshot added with ID: ${documentReference.id}")
                 callback(documentReference.id) // Pasar el ID al callback
             }
@@ -262,18 +261,16 @@ class ParkingDetailFragment:Fragment(), CustomTimePickerFragment.TimePickerListe
 
                 val duracion = (fechaFin.time - fechaInicio.time) / 60000 // Diferencia en minutos
 
-                if (duracion >= 30) {
+                if (duracion >= 10) {
                     val costoTotal = (duracion * tarifaPorMinuto) + 3500
                     binding.textViewTotalCost.text = "Valor a pagar: $costoTotal"
                     valorTotal = costoTotal.toInt()
 
-                    // Formatear las fechas de inicio y fin para enviar a Firestore
                      reservaInicio = formatoFechaHora.format(fechaInicio)
                      reservaFin = formatoFechaHora.format(fechaFin)
 
-                    // Aquí puedes asignar reservaInicio y reservaFin a las variables de clase para usarlas después en la creación del objeto Reservation
                 } else {
-                    Toast.makeText(context, "La reserva mínima es de 30 minutos.", Toast.LENGTH_LONG).show()
+                    Toast.makeText(context, "La reserva mínima es de 10 minutos.", Toast.LENGTH_LONG).show()
                 }
             }
         } catch (e: ParseException) {
