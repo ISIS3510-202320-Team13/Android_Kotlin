@@ -43,7 +43,7 @@
     </fragment>
     <fragment
         android:id="@+id/parkingDetail"
-        android:name="com.example.parkezkotlin.ui.view.ParkingDetailFragment"
+        android:name="com.example.parkezkotlin.ui.viewModel.view.ParkingDetailFragment"
         android:label="fragment_parking_detail"
         tools:layout="@layout/fragment_parking_detail" >
         <action
@@ -135,7 +135,7 @@
     </fragment>
     <fragment
         android:id="@+id/custom_time_picker"
-        android:name="com.example.parkezkotlin.custom_time_picker"
+        android:name="com.example.parkezkotlin.ui.viewModel.view.CustomTimePickerFragment"
         android:label="fragment_custom_time_picker"
         tools:layout="@layout/fragment_custom_time_picker" />
     <fragment

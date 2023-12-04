@@ -8,9 +8,8 @@ val parking: String?,
 val status: String?,
 val time_to_reserve: Int?,
 val user: String?,
-var uid: String? = null
 ){
-    constructor() : this(null, null, null, null, null, null, null, null)
+    constructor() : this(null, null, null, null, null, null, null)
 }
 
 

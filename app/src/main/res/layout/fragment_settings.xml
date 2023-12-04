@@ -28,7 +28,6 @@
             android:layout_height="39dp"
             android:layout_marginTop="50dp"
             android:text="TextView"
-            android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView20" />
@@ -39,7 +38,6 @@
             android:layout_height="37dp"
             android:layout_marginTop="56dp"
             android:text="TextView"
-            android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.501"
             app:layout_constraintStart_toStartOf="parent"
@@ -51,9 +49,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="76dp"
             android:text="SALIR"
+            android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/email" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

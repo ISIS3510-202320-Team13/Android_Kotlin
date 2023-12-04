@@ -1,4 +1,4 @@
-
+package com.example.parkezkotlin.ui.viewModel.view
 import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
