@@ -130,6 +130,7 @@ class ParkingDetailFragment:Fragment(), CustomTimePickerFragment.TimePickerListe
                             putInt("ratePerMinute", tarifaPorMinuto)
                             putInt("timeToReserve", timeToReserve)
 
+
                         }
                         Navigation.findNavController(view).navigate(R.id.action_parkingDetail_to_booking_info, bundle)
                     } else {
