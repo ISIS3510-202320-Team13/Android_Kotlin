@@ -10,9 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.parkezkotlin.data.model.Reservation
 import com.example.parkezkotlin.databinding.ItemReservationBinding
 
-class ReservationAdapter : ListAdapter<Reservation, ReservationAdapter.ReservationViewHolder>(
-    ReservationDiffCallback()
-) {
+class ReservationAdapter(
+    private val parkingLotNamesMap: Map<String, String> = emptyMap()
+) : ListAdapter<Reservation, ReservationAdapter.ReservationViewHolder>(ReservationDiffCallback()) {
 
     private var allReservations: List<Reservation> = emptyList()
 
@@ -39,7 +39,7 @@ class ReservationAdapter : ListAdapter<Reservation, ReservationAdapter.Reservati
 
     override fun onBindViewHolder(holder: ReservationViewHolder, position: Int) {
         val reservation = getItem(position)
-        holder.bind(reservation)
+        holder.bind(reservation, parkingLotNamesMap)
     }
 
     inner class ReservationViewHolder(private val binding: ItemReservationBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -55,8 +55,9 @@ class ReservationAdapter : ListAdapter<Reservation, ReservationAdapter.Reservati
             }
         }
 
-        fun bind(reservation: Reservation) {
-            binding.textView43.text = reservation.uid
+        fun bind(reservation: Reservation, parkingLotNamesMap: Map<String, String>) {
+            val parkingLotName = parkingLotNamesMap[reservation.parking ?: ""]
+            binding.textView43.text = parkingLotName ?: "Unknown Parking Lot"
             val day=reservation.entry_time
             if (day != null) {
                 if (day.length>=10)

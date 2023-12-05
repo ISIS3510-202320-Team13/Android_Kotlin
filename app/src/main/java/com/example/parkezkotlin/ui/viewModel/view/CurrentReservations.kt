@@ -7,6 +7,7 @@ import com.example.parkezkotlin.ui.viewModel.ReservationAdapter
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,7 +23,7 @@ class CurrentReservations : Fragment() {
 
     private lateinit var binding: FragmentCurrentReservationsBinding
     private val viewModel: ReservationViewModel by viewModels()
-    private val reservationAdapter = ReservationAdapter()
+    private var reservationAdapter = ReservationAdapter()
 
 
     override fun onCreateView(
@@ -41,7 +42,13 @@ class CurrentReservations : Fragment() {
 
         viewModel.reservationsLiveData.observe(viewLifecycleOwner) { reservations ->
             if (reservations != null) {
-                reservationAdapter.setAllReservations(reservations)
+                viewModel.fetchParkingLotNames()
+                viewModel.getParkingLotNamesMap().observe(viewLifecycleOwner) { parkingLotNamesMap ->
+                    Log.d("ParkingLotNames", parkingLotNamesMap.toString())
+                    reservationAdapter = ReservationAdapter(parkingLotNamesMap)
+                    reservationAdapter.setAllReservations(reservations)
+                    binding.recyclerView.adapter = reservationAdapter
+                }
             } else {
                 Snackbar.make(
                     binding.root,
