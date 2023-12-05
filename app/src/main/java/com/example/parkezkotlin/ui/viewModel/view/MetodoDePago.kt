@@ -1,6 +1,7 @@
 package com.example.parkezkotlin.ui.viewModel.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,6 +33,8 @@ class MetodoDePago : Fragment() {
         return binding.root
     }
 
+    private var startTimeMillis: Long = 0
+    private var endTimeMillis: Long = 0
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val parkingName = arguments?.getString("parkingName") ?: "Nombre no disponible"
@@ -45,7 +48,12 @@ class MetodoDePago : Fragment() {
         functions = FirebaseFunctions.getInstance()
         functions.useEmulator("127.0.2.2", 5001)
 
+        startTimeMillis = System.currentTimeMillis()
         binding.payButton.setOnClickListener {
+            endTimeMillis = System.currentTimeMillis()
+            val timeSpentMillis = endTimeMillis - startTimeMillis
+            val timeSpentSeconds = timeSpentMillis / 1000
+            Log.d("Time spent inserting payment information", timeSpentSeconds.toString())
             val cardInputWidget = binding.cardInputWidget
             val cardParams = cardInputWidget.cardParams
             if (cardParams != null) {
@@ -75,8 +83,6 @@ class MetodoDePago : Fragment() {
             }
 
         }
-
-
 
     }
 
