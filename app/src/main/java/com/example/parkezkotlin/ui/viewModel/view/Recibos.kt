@@ -24,10 +24,14 @@ class Recibos : Fragment() {
         val reservationId = arguments?.getString("reservationId") ?: "ID no disponible"
         val totalCost = arguments?.getInt("totalCost") ?: 0
         val timeToReserve = arguments?.getInt("timeToReserve") ?: 0
+        val date = arguments?.getLong("date") ?: 0
 
         binding.editTextText10.text = parkingName
         binding.editTextText11.text = reservationId
         binding.editTextText7.text = "$timeToReserve min - $${totalCost}"
+
+
+
 
         val button = binding.button
         button.setOnClickListener {
