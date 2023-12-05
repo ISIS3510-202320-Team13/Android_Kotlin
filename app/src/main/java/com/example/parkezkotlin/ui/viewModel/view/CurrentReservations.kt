@@ -20,8 +20,10 @@ import com.google.firebase.auth.FirebaseAuth
  * create an instance of this fragment.
  */
 class CurrentReservations : Fragment() {
-
-    private lateinit var binding: FragmentCurrentReservationsBinding
+    // Microoptimización para inicializar binding solamente cuando se accede a la vista por primera vez.
+    private val binding: FragmentCurrentReservationsBinding by lazy {
+        FragmentCurrentReservationsBinding.inflate(layoutInflater)
+    }
     private val viewModel: ReservationViewModel by viewModels()
     private var reservationAdapter = ReservationAdapter()
 
@@ -30,7 +32,6 @@ class CurrentReservations : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentCurrentReservationsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
