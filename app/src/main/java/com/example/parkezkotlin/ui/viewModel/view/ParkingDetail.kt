@@ -52,6 +52,8 @@ class ParkingDetailFragment:Fragment(), CustomTimePickerFragment.TimePickerListe
 
     private var job: Job? = null
     private val scope = CoroutineScope(Dispatchers.Default)
+    private var startTime: Long = 0
+    private var endTime: Long = 0
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
@@ -83,8 +85,12 @@ class ParkingDetailFragment:Fragment(), CustomTimePickerFragment.TimePickerListe
         val currentUser = auth.currentUser
 
         currentUser?.let {
-
+            startTime = System.currentTimeMillis()
             binding.buttom.setOnClickListener {
+                endTime = System.currentTimeMillis()
+                val totalTimeSpentMilliseconds = endTime - startTime
+                val totalTimeSpentSeconds = totalTimeSpentMilliseconds/1000
+                Log.d("Time spent filling parking detail information: ", totalTimeSpentSeconds.toString())
                 if (!isInternetAvailable()) {
                     Toast.makeText(context, "No hay conexión a Internet. Por favor, inténtalo de nuevo más tarde.", Toast.LENGTH_LONG).show()
                     return@setOnClickListener
