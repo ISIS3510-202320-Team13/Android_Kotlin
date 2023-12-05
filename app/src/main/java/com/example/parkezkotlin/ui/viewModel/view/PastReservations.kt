@@ -15,7 +15,11 @@ import com.google.firebase.auth.FirebaseAuth
 
 
 class PastReservations : Fragment() {
-    private lateinit var binding: FragmentPastReservationsBinding
+
+    // Microoptimización para inicializar binding solamente cuando se accede a la vista por primera vez.
+    private val binding: FragmentPastReservationsBinding by lazy {
+        FragmentPastReservationsBinding.inflate(layoutInflater)
+    }
     private val viewModel: ReservationViewModel by viewModels()
     private val reservationAdapter = ReservationAdapter()
 
@@ -24,7 +28,6 @@ class PastReservations : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentPastReservationsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -45,10 +48,8 @@ class PastReservations : Fragment() {
                 ).show()
             }
         }
-        val userid=FirebaseAuth.getInstance().currentUser?.uid
-
-
-        viewModel.fetchReservationsFromUser(userid.toString()   )
+        val userid=FirebaseAuth.getInstance().currentUser
+        viewModel.fetchReservationsFromUser(userid?.uid.toString())
 
     }
 }
