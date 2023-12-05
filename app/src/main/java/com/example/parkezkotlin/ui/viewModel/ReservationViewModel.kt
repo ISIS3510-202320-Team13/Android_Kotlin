@@ -38,7 +38,7 @@ class ReservationViewModel : ViewModel() {
                     reservationsLiveData.postValue(emptyList())
                 } else {
                     val reservations = snapshot.toObjects(Reservation::class.java)
-                    Log.d(TAG, "Fetched reservations: $reservations") // Log the fetched data
+                    Log.d(TAG, "Fetched reservations: $reservations")
 
                     reservationsLiveData.postValue(reservations)
                     // Cache reservation details

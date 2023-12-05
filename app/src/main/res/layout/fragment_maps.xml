@@ -27,13 +27,6 @@
             android:src="@drawable/baseline_history_24" />
 
         <ImageButton
-            android:id="@+id/imageButton5"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:src="@drawable/baseline_favorite_24" />
-
-        <ImageButton
             android:id="@+id/imageButton6"
             android:layout_width="0dp"
             android:layout_height="match_parent"
